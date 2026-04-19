@@ -1027,18 +1027,28 @@ function saveCurrentToHistory() {
   if (!msgs.length) return;
 
   const history = getHistory();
-  const existing = history.findIndex(s => s.id === currentSessionId);
+  
+  // Protect against LocalStorage Quota Errors by purging Base64 image data strings from HTML snapshot
+  let snapshot = document.getElementById('chatMessages')?.innerHTML || '';
+  snapshot = snapshot.replace(/src="data:image\/[^;]+;base64,[^"]+"/g, 'src="USER_AVATAR_B64_TOKEN"');
+
   const session = {
     id: currentSessionId,
     who: selectedWho,
     timestamp: currentSessionTimestamp,
     messages: msgs,
     system: chatMessages._system || '',
-    htmlSnapshot: document.getElementById('chatMessages')?.innerHTML || ''
+    htmlSnapshot: snapshot
   };
 
-  if (existing >= 0) history[existing] = session;
-  else history.unshift(session);
+  // Pull existing session out of the array if it exists
+  const existing = history.findIndex(s => s.id === currentSessionId);
+  if (existing >= 0) {
+    history.splice(existing, 1);
+  }
+  
+  // Always unshift so recently updated chats jump to index 0 (top of history)
+  history.unshift(session);
 
   // cap at 30 sessions
   if (history.length > 30) history.splice(30);
@@ -1075,7 +1085,18 @@ function loadSession(sessionId) {
 
   document.getElementById('chatSetupPanel').style.display = 'none';
   document.getElementById('chatWindow').classList.add('active');
-  if (session.htmlSnapshot) document.getElementById('chatMessages').innerHTML = session.htmlSnapshot;
+  
+  if (session.htmlSnapshot) {
+    let html = session.htmlSnapshot;
+    // Inject current Base64 avatar back in, or a fallback transparent pixel
+    if (userAvatar) {
+      html = html.replace(/src="USER_AVATAR_B64_TOKEN"/g, `src="${userAvatar}"`);
+    } else {
+      html = html.replace(/src="USER_AVATAR_B64_TOKEN"/g, `src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="`);
+    }
+    document.getElementById('chatMessages').innerHTML = html;
+  }
+  
   updateUIForLimit();
   setTimeout(() => { const c = document.getElementById('chatMessages'); if(c) c.scrollTop = c.scrollHeight; }, 80);
 
@@ -1140,7 +1161,7 @@ function closeHistorySidebar() {
 function bootChat() {
   const history = getHistory();
   if (history.length) {
-    const last = history[0];
+    const last = history[0]; // because we now unshift newly updated chats, this correctly grabs the latest active one!
     currentSessionId = last.id;
     currentSessionTimestamp = last.timestamp;
     selectedWho = last.who || 'group';
@@ -1164,7 +1185,15 @@ function bootChat() {
     if (last.htmlSnapshot && last.messages.length) {
       document.getElementById('chatSetupPanel').style.display = 'none';
       document.getElementById('chatWindow').classList.add('active');
-      document.getElementById('chatMessages').innerHTML = last.htmlSnapshot;
+      
+      let html = last.htmlSnapshot;
+      if (userAvatar) {
+        html = html.replace(/src="USER_AVATAR_B64_TOKEN"/g, `src="${userAvatar}"`);
+      } else {
+        html = html.replace(/src="USER_AVATAR_B64_TOKEN"/g, `src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="`);
+      }
+      document.getElementById('chatMessages').innerHTML = html;
+      
       updateUIForLimit();
       setTimeout(() => { const c = document.getElementById('chatMessages'); if(c) c.scrollTop = c.scrollHeight; }, 80);
     }
@@ -1180,7 +1209,10 @@ function saveFeedToLocal() {
   try {
     const userCards =[];
     document.querySelectorAll('#feedGrid .feed-card[data-user-post="true"]').forEach(card => {
-      userCards.push({ cardId: card.dataset.cardId, html: card.outerHTML });
+      let html = card.outerHTML;
+      // Strip base64 image strings to dodge LocalStorage quota limit
+      html = html.replace(/src="data:image\/[^;]+;base64,[^"]+"/g, 'src="USER_AVATAR_B64_TOKEN"');
+      userCards.push({ cardId: card.dataset.cardId, html: html });
     });
     localStorage.setItem(FEED_SAVE_KEY, JSON.stringify({ cards: userCards, histories: socialHistories }));
   } catch(e) {}
@@ -1194,7 +1226,14 @@ function restoreFeedFromLocal() {
     if (saved.histories) Object.assign(socialHistories, saved.histories);
     if (saved.cards && saved.cards.length) {
       const grid = document.getElementById('feedGrid');
-      saved.cards.forEach(({ html }) => grid.insertAdjacentHTML('afterbegin', html));
+      saved.cards.forEach(({ html }) => {
+        if (userAvatar) {
+          html = html.replace(/src="USER_AVATAR_B64_TOKEN"/g, `src="${userAvatar}"`);
+        } else {
+          html = html.replace(/src="USER_AVATAR_B64_TOKEN"/g, `src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="`);
+        }
+        grid.insertAdjacentHTML('afterbegin', html);
+      });
       initFeedCards();
     }
     showFeedSavedNotice();
@@ -1426,7 +1465,10 @@ async function postSocialNew() {
     document.querySelector(`#threads-${cardId} .loading`).remove();
     appendSocialReplies(`threads-${cardId}`, replyTxt, `replybox-${cardId}`, `input-${cardId}`);
     saveFeedToLocal();
-  } catch (e) { document.querySelector(`#threads-${cardId} .loading`).innerHTML = `⚠ Failed.`; }
+  } catch (e) { 
+    document.querySelector(`#threads-${cardId} .loading`).innerHTML = `⚠ Failed.`; 
+    saveFeedToLocal(); // Ensures post exists visually even if fetch failed
+  }
 }
 
 async function sendSocialReply(boxId, inputId, threadContainerId, originalName, originalText) {
@@ -1467,7 +1509,10 @@ async function sendSocialReply(boxId, inputId, threadContainerId, originalName, 
     tContainer.querySelector('.loading').remove();
     appendSocialReplies(threadContainerId, replyTxt, boxId, inputId);
     saveFeedToLocal();
-  } catch (e) { tContainer.querySelector('.loading').innerHTML = `⚠ Failed.`; }
+  } catch (e) { 
+    tContainer.querySelector('.loading').innerHTML = `⚠ Failed.`; 
+    saveFeedToLocal();
+  }
 }
 
 function appendSocialReplies(containerId, text, boxId, inputId) {
@@ -1649,6 +1694,9 @@ async function sendChatMsg() {
     </div>`);
   c.scrollTop = c.scrollHeight;
   chatMessages.push({ role: 'user', content: text });
+  
+  // Marks session active timestamp to prioritize it in the sorting list
+  currentSessionTimestamp = Date.now();
 
   const tId = 'type-' + Date.now();
   c.insertAdjacentHTML('beforeend', `
@@ -1675,8 +1723,13 @@ async function sendChatMsg() {
       });
       if(current) appendChatBotMsg(current.name, current.text);
     } else { appendChatBotMsg(CHAR_DATA[selectedWho].name.split(' ')[0], replyTxt); }
-    saveCurrentToHistory();
-  } catch(e) { document.getElementById(tId).remove(); c.insertAdjacentHTML('beforeend', `<div style="text-align:center;color:red;font-size:.7rem;">⚠ Error: ${e.message}</div>`); }
+    
+    saveCurrentToHistory(); // Standard successful save
+  } catch(e) { 
+    document.getElementById(tId).remove(); 
+    c.insertAdjacentHTML('beforeend', `<div style="text-align:center;color:red;font-size:.7rem;">⚠ Error: ${e.message}</div>`); 
+    saveCurrentToHistory(); // Ensures user's sent message is saved even if API totally fails
+  }
   
   if (updateUIForLimit()) { document.getElementById('chatSendBtn').disabled = false; input.focus(); }
 }
