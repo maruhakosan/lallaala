@@ -1,0 +1,1700 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Nasution Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500&family=Lato:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #161412;
+  --bg2: #1e1b18;
+  --bg3: #26231e;
+  --gold: #dcb86a;
+  --gold-light: #f9e7b8;
+  --gold-dim: rgba(220,184,106,.4);
+  --divider: rgba(220,210,195,.18);
+  --divider-bright: rgba(220,210,195,.35);
+  --text: #f7f3ea; 
+  --text-dim: #c8bfb0; 
+  --text-bright: #ffffff;
+  --red: #a82525;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); font-family: 'Lato', sans-serif; color: var(--text); overflow-x: hidden; min-height: 100vh; font-weight: 400; }
+
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: .3;
+}
+
+.corner-tl, .corner-br { position: fixed; pointer-events: none; z-index: 200; width: 22px; height: 22px; border-color: rgba(220,184,106,.25); border-style: solid; }
+.corner-tl { top: 14px; left: 14px; border-width: 1px 0 0 1px; }
+.corner-br { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+
+/* ══ TICKER ══ */
+.news-ticker { background: var(--red); padding: .42rem 0; overflow: hidden; position: sticky; top: 0; z-index: 500; border-bottom: 1px solid rgba(80,10,10,.6); }
+.ticker-inner { display: flex; align-items: center; white-space: nowrap; animation: ticker 70s linear infinite; }
+.ticker-tag { font-family: 'Space Mono', monospace; font-size: .56rem; background: #0b0907; color: var(--red); padding: .15rem .75rem; letter-spacing: .1em; flex-shrink: 0; margin-right: 1.4rem; font-weight: 700; }
+.ticker-text { font-family: 'Space Mono', monospace; font-size: .56rem; color: #fff; letter-spacing: .03em; padding-right: 3rem; }
+.ticker-dot { color: rgba(255,255,255,.4); padding: 0 .9rem; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ══ NAV ══ */
+.main-nav { background: rgba(22, 20, 18, .95); border-bottom: 1px solid var(--divider); position: sticky; top: 28px; z-index: 400; backdrop-filter: blur(8px); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; padding: 0 1.5rem; overflow-x: auto; scrollbar-width: none; }
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-brand { font-family: 'Cormorant SC', serif; font-size: .7rem; letter-spacing: .3em; color: var(--gold); padding: 1rem 1.5rem 1rem 0; border-right: 1px solid var(--divider); margin-right: 1.5rem; flex-shrink: 0; white-space: nowrap; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab { font-family: 'Cormorant SC', serif; font-size: .58rem; letter-spacing: .25em; color: var(--text-dim); padding: 1rem 1.2rem; cursor: pointer; border-bottom: 2px solid transparent; transition: color .25s, border-color .25s; white-space: nowrap; background: none; border: none; text-transform: uppercase; }
+.nav-tab:hover { color: var(--text-bright); }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ══ PAGES ══ */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ══ HERO & HOME ══ */
+.hero { min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 70% 55% at 50% 55%, rgba(220,184,106,.055) 0%, transparent 70%); }
+.hero-eyebrow { font-family: 'Cormorant SC', serif; font-size: .56rem; letter-spacing: .52em; color: var(--gold); text-transform: uppercase; margin-bottom: 2.2rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp .8s ease .2s forwards; }
+.hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.6rem, 14vw, 8rem); font-weight: 300; font-style: italic; color: var(--text-bright); line-height: .88; position: relative; z-index: 1; opacity: 0; animation: fadeUp .9s ease .35s forwards; }
+.hero-title-top { display: block; font-style: normal; font-weight: 300; font-size: clamp(.85rem, 2.8vw, 1.7rem); letter-spacing: .5em; color: var(--gold-light); font-family: 'Cormorant SC', serif; margin-bottom: .55rem; }
+.hero-sub { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .68rem; letter-spacing: .2em; color: var(--text-dim); text-transform: uppercase; margin-top: 1.3rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp .9s ease .55s forwards; }
+.hero-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem auto 2.4rem; width: min(260px, 65%); position: relative; z-index: 1; opacity: 0; animation: fadeUp .9s ease .7s forwards; }
+.hero-divider hr { flex: 1; border: none; border-top: 1px solid var(--divider-bright); }
+.hero-divider span { color: var(--gold); font-size: .62rem; }
+.hero-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.05rem, 2.4vw, 1.25rem); font-weight: 400; color: var(--text-dim); line-height: 2; max-width: 380px; margin: 0 auto; position: relative; z-index: 1; opacity: 0; animation: fadeUp .9s ease .85s forwards; }
+
+.lore-band { background: var(--bg2); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); padding: 2.4rem 1.5rem; }
+.lore-band-inner { display: flex; align-items: flex-start; gap: 2.2rem; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
+.lore-pill { flex: 1; min-width: 200px; border-left: 1px solid var(--gold-dim); padding-left: 1.2rem; opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.lore-pill.visible { opacity: 1; transform: none; }
+.lore-pill-label { font-family: 'Cormorant SC', serif; font-size: .48rem; letter-spacing: .32em; color: var(--gold); margin-bottom: .45rem; }
+.lore-pill-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-dim); line-height: 1.78; }
+
+.home-sections { border-top: 1px solid var(--divider); padding: 4rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+.home-sections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 1px; background: var(--divider); border: 1px solid var(--divider); margin-top: 3rem; }
+.home-section-card { background: var(--bg2); padding: 2.8rem 2rem; cursor: pointer; transition: background .25s; display: flex; flex-direction: column; gap: .75rem; position: relative; overflow: hidden; }
+.home-section-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0; transition: opacity .4s; }
+.home-section-card:hover { background: var(--bg3); }
+.home-section-card:hover::before { opacity: 1; }
+.hsc-glyph { font-size: 1rem; color: var(--gold); opacity: .6; font-family: 'Cormorant Garamond', serif; }
+.hsc-label { font-family: 'Cormorant SC', serif; font-size: .48rem; letter-spacing: .35em; color: var(--gold); }
+.hsc-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--text-bright); line-height: 1.2; }
+.hsc-hint { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .8rem; color: var(--text-dim); line-height: 1.7; }
+.hsc-arrow { font-family: 'Cormorant SC', serif; font-size: .5rem; letter-spacing: .2em; color: var(--gold); opacity: 0; transition: opacity .3s; margin-top: auto; }
+.home-section-card:hover .hsc-arrow { opacity: 1; }
+
+section { padding: 5.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+.section-eyebrow { font-family: 'Cormorant SC', serif; font-size: .53rem; letter-spacing: .45em; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: .85rem; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.7rem, 5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--text-bright); text-align: center; line-height: 1.15; margin-bottom: .55rem; }
+.section-rule { display: flex; align-items: center; gap: .8rem; max-width: 230px; margin: 0 auto 3.8rem; }
+.section-rule hr { flex: 1; border: none; border-top: 1px solid var(--divider); }
+.section-rule span { color: var(--gold); font-size: .58rem; }
+.full-bleed-wrap { border-top: 1px solid var(--divider); width: 100%; }
+
+/* ══ SETUP / FORM PANELS ══ */
+.setup-panel { background: var(--bg2); border: 1px solid var(--divider); padding: 2.4rem; margin: 0 auto 2.5rem; max-width: 900px; }
+.setup-title { font-family: 'Cormorant SC', serif; font-size: .6rem; letter-spacing: .38em; color: var(--gold); margin-bottom: 1.6rem; padding-bottom: .8rem; border-bottom: 1px solid var(--divider); display: flex; align-items: center; gap: .6rem; text-transform: uppercase; }
+.setup-title::before { content: '◈'; }
+.setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.setup-grid > div { min-width: 0; } 
+@media (max-width: 600px) { .setup-grid { grid-template-columns: 1fr; gap: 1.2rem; } .setup-panel { padding: 1.4rem; } }
+
+.field-label { font-family: 'Cormorant SC', serif; font-size: .55rem; letter-spacing: .28em; color: var(--text-dim); display: block; margin-bottom: .6rem; font-weight: 500; text-transform: uppercase; }
+.field-input, .field-select { width: 100%; max-width: 100%; background: rgba(255,255,255,.04); border: 1px solid var(--divider); color: var(--text-bright); font-family: 'Lato', sans-serif; font-size: .9rem; font-weight: 400; padding: .75rem 1rem; outline: none; transition: border-color .25s; -webkit-appearance: none; appearance: none; text-overflow: ellipsis; }
+.field-input::placeholder { color: rgba(220,210,195,.4); }
+.field-input:focus, .field-select:focus { border-color: var(--gold-dim); background: rgba(255,255,255,.07); }
+.field-input:disabled { opacity: 0.5; cursor: not-allowed; }
+.field-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23dcb86a' opacity='.7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+.field-select option { background: var(--bg2); color: var(--text-bright); }
+.setup-full { grid-column: 1 / -1; }
+
+.custom-api-fields { background: rgba(255,255,255,.02); padding: 1.5rem; border: 1px solid var(--divider); margin-top: -0.5rem; display: none; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+@media (max-width: 600px) { .custom-api-fields { grid-template-columns: 1fr; padding: 1rem; } }
+
+/* ══ AVATAR UPLOAD ══ */
+.avatar-upload-wrap { display: flex; align-items: center; gap: 1.2rem; }
+.avatar-preview { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider-bright); flex-shrink: 0; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant SC', serif; font-size: .7rem; color: var(--gold); cursor: pointer; position: relative; transition: border-color .2s; }
+.avatar-preview:hover { border-color: var(--gold-dim); }
+.avatar-preview img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.avatar-preview-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; font-size: .6rem; color: #fff; border-radius: 50%; }
+.avatar-preview:hover .avatar-preview-overlay { opacity: 1; }
+.avatar-upload-info { flex: 1; min-width: 0; }
+.avatar-upload-info .field-label { margin-bottom: .4rem; }
+.avatar-upload-hint { font-family: 'Space Mono', monospace; font-size: .46rem; color: var(--text-dim); line-height: 1.6; margin-bottom: .5rem; }
+.avatar-upload-btns { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.avatar-btn { font-family: 'Space Mono', monospace; font-size: .46rem; letter-spacing: .08em; padding: .35rem .8rem; border: none; cursor: pointer; text-transform: uppercase; transition: background .2s; white-space: nowrap; }
+.avatar-btn-upload { background: var(--gold-dim); color: var(--text-bright); }
+.avatar-btn-upload:hover { background: rgba(220,184,106,.6); }
+.avatar-btn-remove { background: none; color: var(--red); border: 1px solid rgba(168,37,37,.4); }
+.avatar-btn-remove:hover { background: rgba(168,37,37,.12); }
+#avatarFileInput { display: none; }
+
+.primary-btn { display: block; width: 100%; font-family: 'Cormorant SC', serif; font-size: .65rem; letter-spacing: .32em; color: #0b0907; background: var(--gold-light); border: none; padding: 1.1rem 2rem; cursor: pointer; transition: background .2s; text-transform: uppercase; font-weight: 600; text-align: center; }
+.primary-btn:hover { background: var(--gold); }
+
+/* ══ FEED & SOCIAL POSTS ══ */
+.feed-compose-wrap { background: var(--bg2); border: 1px solid var(--divider); padding: 1.5rem; margin-bottom: 2rem; }
+.feed-compose-label { font-family: 'Space Mono', monospace; font-size: .55rem; letter-spacing: .1em; color: var(--gold); margin-bottom: .8rem; }
+.feed-compose-area { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--divider); color: var(--text-bright); font-family: 'Lato', sans-serif; font-size: .95rem; font-weight: 400; padding: .5rem 0 1rem; resize: none; outline: none; }
+.feed-compose-area::placeholder { color: rgba(220,210,195,.4); }
+.feed-compose-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+.feed-compose-btn { font-family: 'Space Mono', monospace; font-size: .5rem; letter-spacing: .15em; background: var(--gold-light); color: #000; padding: .5rem 1.2rem; border: none; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+.feed-compose-btn:hover { background: var(--gold); }
+.feed-compose-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 1px; background: var(--divider); border: 1px solid var(--divider); max-width: 960px; margin: 0 auto; align-items: start; }
+.feed-card { background: var(--bg2); padding: 1.6rem 1.5rem; opacity: 0; transform: translateY(12px); transition: opacity .55s ease, transform .55s ease; display: flex; flex-direction: column; }
+.feed-card.visible { opacity: 1; transform: none; }
+.feed-card:hover { background: var(--bg3); }
+.feed-header { display: flex; align-items: center; gap: .8rem; margin-bottom: .85rem; }
+.feed-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider-bright); flex-shrink: 0; background: #1a1612; }
+.feed-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.feed-avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant SC', serif; font-size: .6rem; color: var(--gold); }
+.feed-handle { font-family: 'Space Mono', monospace; font-size: .6rem; color: var(--text-dim); line-height: 1.45; }
+.feed-handle strong { display: block; color: var(--text-bright); font-size: .63rem; }
+.feed-x-text { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .88rem; line-height: 1.8; color: var(--text); }
+.feed-x-meta { font-family: 'Space Mono', monospace; font-size: .5rem; color: var(--text-dim); margin-top: .85rem; padding-top: .65rem; border-top: 1px solid var(--divider); }
+
+.x-action-bar { display: flex; gap: 1.5rem; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: .55rem; color: var(--gold); opacity: .7; }
+.x-action-btn { cursor: pointer; transition: opacity .2s; }
+.x-action-btn:hover { opacity: 1; color: var(--gold-light); }
+
+.thread-replies { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.thread-item { display: flex; gap: .8rem; align-items: flex-start; border-top: 1px solid var(--divider); padding-top: 1rem; }
+.thread-avatar { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider); flex-shrink: 0; background: #1a1612; }
+.thread-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.thread-body { flex: 1; min-width: 0; }
+.thread-name { font-family: 'Space Mono', monospace; font-size: .55rem; color: var(--gold); margin-bottom: .2rem; }
+.thread-text { font-family: 'Lato', sans-serif; font-size: .85rem; color: var(--text-bright); line-height: 1.6; }
+.thread-actions { margin-top: .4rem; font-family: 'Space Mono', monospace; font-size: .45rem; color: var(--gold); opacity: .5; cursor: pointer; transition: opacity .2s; text-transform: uppercase; letter-spacing: .05em; display: inline-block; }
+.thread-actions:hover { opacity: 1; color: var(--gold-light); }
+
+.x-reply-box { display: none; margin-top: 1rem; border-top: 1px solid var(--divider); padding-top: 1rem; }
+.x-reply-box.active { display: block; }
+.x-reply-input-wrap { display: flex; gap: .5rem; }
+.x-reply-input { flex: 1; background: rgba(255,255,255,.03); border: 1px solid var(--divider); color: var(--text-bright); padding: .5rem .8rem; font-family: 'Lato', sans-serif; font-size: .85rem; outline: none; }
+.x-reply-input:focus { border-color: var(--gold-dim); }
+.x-reply-send { background: var(--gold-dim); color: var(--text-bright); border: none; padding: 0 1rem; cursor: pointer; font-size: .8rem; transition: background .2s; }
+.x-reply-send:hover { background: var(--gold); color: #000; }
+
+/* FEED STYLES - NON X POSTS */
+.feed-tabloid-tag { font-family: 'Space Mono', monospace; font-size: .55rem; letter-spacing: .1em; color: var(--red); margin-bottom: .55rem; display: flex; align-items: center; gap: .45rem; }
+.feed-tabloid-tag::before { content: '●'; animation: blink 1.4s ease infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .15; } }
+.feed-tabloid-headline { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(1.05rem, 2.4vw, 1.25rem); color: var(--text-bright); line-height: 1.3; margin-bottom: .65rem; text-transform: uppercase; }
+.feed-tabloid-body { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .85rem; color: var(--text-dim); line-height: 1.78; }
+.feed-tabloid-source { font-family: 'Space Mono', monospace; font-size: .5rem; color: var(--text-dim); margin-top: .85rem; opacity: .7; }
+.feed-society-ornament { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .8rem; color: var(--gold); margin-bottom: .55rem; letter-spacing: .04em; }
+.feed-society-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 2.1vw, 1.15rem); color: var(--text); line-height: 1.92; }
+.feed-society-text strong { font-style: normal; color: var(--text-bright); font-weight: 500; }
+.feed-society-sig { font-family: 'Cormorant SC', serif; font-size: .5rem; letter-spacing: .22em; color: var(--text-dim); margin-top: .95rem; padding-top: .65rem; border-top: 1px solid var(--divider); }
+
+/* FEED STYLES - GROUP CHAT */
+.feed-card.type-groupchat { background: #1a1714; }
+.feed-card.type-groupchat:hover { background: #221f1b; }
+.groupchat-header { font-family: 'Space Mono', monospace; font-size: .55rem; letter-spacing: .1em; color: var(--gold); opacity: .8; margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--divider); display: flex; align-items: center; gap: .5rem; }
+.chat-bubble-wrap { display: flex; flex-direction: column; gap: .85rem; }
+.chat-bubble { display: flex; align-items: flex-start; gap: .6rem; }
+.chat-bubble-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider); flex-shrink: 0; background: #1a1612; margin-top: .1rem; }
+.chat-bubble-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.chat-bubble-body { flex: 1; }
+.chat-bubble-name { font-family: 'Space Mono', monospace; font-size: .55rem; color: var(--gold); margin-bottom: .3rem; letter-spacing: .04em; }
+.chat-bubble-text { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .85rem; line-height: 1.72; color: var(--text); background: rgba(255,255,255,.05); border: 1px solid var(--divider); padding: .6rem .85rem; display: inline-block; max-width: 100%; border-radius: 4px; }
+.chat-meta { font-family: 'Space Mono', monospace; font-size: .5rem; color: var(--text-dim); margin-top: .5rem; opacity: .8; }
+
+/* ══ PROFILES ══ */
+.profile-hero-wrap { display: grid; grid-template-columns: 220px 1fr; gap: 2.8rem; align-items: start; max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+@media (max-width: 600px) { .profile-hero-wrap { grid-template-columns: 1fr; gap: 1.5rem; } }
+.profile-img-frame { width: 100%; aspect-ratio: 4/3; overflow: hidden; border: 1px solid var(--divider-bright); position: relative; background: #111009; }
+.profile-img-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; filter: sepia(.06) contrast(1.05); }
+.profile-img-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(22,20,18,.55) 0%, transparent 60%); pointer-events: none; }
+.profile-meta-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(2.4rem, 8vw, 3.8rem); font-weight: 300; color: var(--text-bright); line-height: .92; }
+.profile-meta-full { font-family: 'Cormorant SC', serif; font-size: .55rem; letter-spacing: .2em; color: var(--text-dim); margin-top: .65rem; display: block; }
+.profile-meta-tag { font-family: 'Cormorant SC', serif; font-size: .55rem; letter-spacing: .22em; color: var(--gold); margin-top: .4rem; display: block; }
+.profile-meta-divider { border: none; border-top: 1px solid var(--divider); margin: 1.4rem 0; }
+.profile-meta-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.profile-meta-item-label { font-family: 'Cormorant SC', serif; font-size: .48rem; letter-spacing: .2em; color: var(--text-dim); display: block; margin-bottom: .2rem; }
+.profile-meta-item-val { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--text-bright); }
+.profile-desc-para { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .9rem; line-height: 1.9; color: var(--text-dim); margin-top: 1.2rem; }
+
+.profile-selector-row { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 2rem; display: flex; flex-wrap: wrap; gap: .7rem; border-bottom: 1px solid var(--divider); }
+.profile-selector-btn { font-family: 'Cormorant SC', serif; font-size: .52rem; letter-spacing: .22em; color: var(--text-dim); background: var(--bg2); border: 1px solid var(--divider); padding: .65rem 1.4rem; cursor: pointer; transition: all .2s; text-transform: uppercase; }
+.profile-selector-btn:hover { color: var(--text-bright); border-color: var(--divider-bright); }
+.profile-selector-btn.active { color: var(--gold); border-color: var(--gold-dim); background: rgba(220,184,106,.06); }
+
+/* ══ CHAT HISTORY SIDEBAR ══ */
+.ch-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 800; }
+.ch-overlay.active { display: block; }
+.ch-sidebar { position: fixed; top: 0; left: 0; height: 100%; width: min(340px, 92vw); background: var(--bg2); border-right: 1px solid var(--divider-bright); z-index: 801; transform: translateX(-100%); transition: transform .3s ease; display: flex; flex-direction: column; }
+.ch-sidebar.active { transform: translateX(0); }
+.ch-sidebar-head { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 1.5rem; border-bottom: 1px solid var(--divider); flex-shrink: 0; }
+.ch-sidebar-title { font-family: 'Cormorant SC', serif; font-size: .6rem; letter-spacing: .32em; color: var(--gold); }
+.ch-sidebar-close { background: none; border: none; color: var(--text-dim); font-size: 1.1rem; cursor: pointer; padding: .2rem .4rem; line-height: 1; transition: color .2s; }
+.ch-sidebar-close:hover { color: var(--text-bright); }
+.ch-list { flex: 1; overflow-y: auto; padding: .8rem 0; scrollbar-width: thin; scrollbar-color: var(--divider-bright) transparent; }
+.ch-list::-webkit-scrollbar { width: 4px; }
+.ch-list::-webkit-scrollbar-thumb { background: var(--divider-bright); }
+.ch-empty { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .95rem; color: var(--text-dim); text-align: center; padding: 3rem 1.5rem; opacity: .6; }
+.ch-item { display: flex; align-items: center; gap: .8rem; padding: .9rem 1.5rem; border-bottom: 1px solid var(--divider); cursor: pointer; transition: background .2s; position: relative; }
+.ch-item:hover { background: var(--bg3); }
+.ch-item.active-session { background: rgba(220,184,106,.07); border-left: 2px solid var(--gold); }
+.ch-item-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider-bright); flex-shrink: 0; background: #1a1612; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant SC', serif; font-size: .55rem; color: var(--gold); }
+.ch-item-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.ch-item-body { flex: 1; min-width: 0; }
+.ch-item-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-bright); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-item-meta { font-family: 'Space Mono', monospace; font-size: .46rem; color: var(--text-dim); margin-top: .25rem; letter-spacing: .04em; }
+.ch-item-del { background: none; border: none; color: var(--text-dim); font-size: .75rem; cursor: pointer; padding: .3rem .45rem; opacity: 0; transition: opacity .2s, color .2s; flex-shrink: 0; line-height: 1; }
+.ch-item:hover .ch-item-del { opacity: 1; }
+.ch-item-del:hover { color: var(--red); }
+.ch-sidebar-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--divider); flex-shrink: 0; }
+.ch-clear-all { width: 100%; font-family: 'Space Mono', monospace; font-size: .48rem; letter-spacing: .1em; color: var(--red); background: none; border: 1px solid rgba(168,37,37,.35); padding: .6rem 1rem; cursor: pointer; text-transform: uppercase; transition: background .2s; }
+.ch-clear-all:hover { background: rgba(168,37,37,.12); }
+
+/* ══ SAVED DATA NOTICE & CLEAR BUTTONS ══ */
+.saved-notice { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; background: rgba(220,184,106,.07); border: 1px solid var(--gold-dim); padding: .75rem 1.2rem; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+.saved-notice-text { font-family: 'Space Mono', monospace; font-size: .5rem; color: var(--gold); letter-spacing: .06em; }
+.saved-notice-text span { color: var(--text-dim); display: block; margin-top: .2rem; font-size: .46rem; }
+.clear-btn { font-family: 'Space Mono', monospace; font-size: .48rem; letter-spacing: .1em; color: var(--red); background: none; border: 1px solid rgba(168,37,37,.4); padding: .4rem .85rem; cursor: pointer; transition: background .2s, color .2s; text-transform: uppercase; white-space: nowrap; }
+.clear-btn:hover { background: rgba(168,37,37,.15); color: #e05050; }
+.clear-btn-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+
+/* ══ CONFIRM MODAL ══ */
+.confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 9000; align-items: center; justify-content: center; }
+.confirm-overlay.active { display: flex; }
+.confirm-box { background: var(--bg2); border: 1px solid var(--divider-bright); padding: 2rem 2.4rem; max-width: 380px; width: 90%; text-align: center; }
+.confirm-box-title { font-family: 'Cormorant SC', serif; font-size: .6rem; letter-spacing: .3em; color: var(--gold); margin-bottom: 1rem; }
+.confirm-box-msg { font-family: 'Lato', sans-serif; font-size: .85rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.8rem; }
+.confirm-box-btns { display: flex; gap: .8rem; justify-content: center; }
+.confirm-yes { font-family: 'Space Mono', monospace; font-size: .52rem; letter-spacing: .12em; background: var(--red); color: #fff; border: none; padding: .65rem 1.4rem; cursor: pointer; text-transform: uppercase; transition: opacity .2s; }
+.confirm-yes:hover { opacity: .8; }
+.confirm-no { font-family: 'Space Mono', monospace; font-size: .52rem; letter-spacing: .12em; background: none; color: var(--text-dim); border: 1px solid var(--divider); padding: .65rem 1.4rem; cursor: pointer; text-transform: uppercase; transition: background .2s; }
+.confirm-no:hover { background: rgba(255,255,255,.05); }
+
+/* ══ CHAT WINDOW ══ */
+.chat-window-wrap { display: none; flex-direction: column; height: 65vh; min-height: 480px; border: 1px solid var(--divider); background: var(--bg2); position: relative; max-width: 900px; margin: 0 auto; }
+.chat-window-wrap.active { display: flex; }
+.chat-window-header { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--divider); background: var(--bg3); flex-shrink: 0; }
+.chat-window-avatars { display: flex; gap: -6px; }
+.cwa { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider-bright); margin-left: -8px; flex-shrink: 0; background: #1a1612; }
+.cwa:first-child { margin-left: 0; }
+.cwa img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.chat-window-meta { flex: 1; min-width: 0; }
+.chat-window-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--text-bright); line-height: 1; }
+.chat-window-sub { font-family: 'Space Mono', monospace; font-size: .5rem; color: var(--text-dim); margin-top: .35rem; letter-spacing: .05em; }
+.chat-edit-btn { font-family: 'Cormorant SC', serif; font-size: .5rem; letter-spacing: .2em; color: var(--gold); opacity: .8; background: none; border: 1px solid var(--divider); padding: .5rem .95rem; cursor: pointer; transition: background .2s, color .2s; }
+.chat-edit-btn:hover { background: var(--gold-dim); color: var(--text-bright); }
+
+.chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; scrollbar-width: thin; scrollbar-color: var(--divider-bright) transparent; }
+.chat-messages::-webkit-scrollbar { width: 6px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--divider-bright); border-radius: 3px; }
+
+.cm-msg { display: flex; gap: .8rem; align-items: flex-start; }
+.cm-msg.user-msg { flex-direction: row-reverse; }
+.cm-avatar { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider); flex-shrink: 0; background: #1a1612; margin-top: .1rem; }
+.cm-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.cm-avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant SC', serif; font-size: .6rem; color: var(--gold); }
+.cm-body { max-width: 75%; }
+.cm-name { font-family: 'Space Mono', monospace; font-size: .55rem; color: var(--gold); margin-bottom: .35rem; letter-spacing: .04em; }
+.user-msg .cm-name { text-align: right; color: var(--text-dim); }
+.cm-bubble { font-family: 'Lato', sans-serif; font-weight: 400; font-size: .9rem; line-height: 1.6; color: var(--text-bright); background: rgba(255,255,255,.05); border: 1px solid var(--divider); padding: .7rem 1rem; border-radius: 6px; border-top-left-radius: 0; }
+.user-msg .cm-bubble { background: rgba(220,184,106,.15); border-color: rgba(220,184,106,.3); color: var(--text-bright); border-radius: 6px; border-top-right-radius: 0; }
+.cm-bubble em { font-style: italic; color: var(--text-dim); }
+
+.cm-typing { display: flex; gap: .8rem; align-items: flex-start; }
+.cm-typing-dots { display: flex; gap: 5px; padding: .7rem 1rem; background: rgba(255,255,255,.05); border: 1px solid var(--divider); border-radius: 6px; border-top-left-radius: 0; margin-top: .35rem; }
+.cm-typing-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: .4; animation: typingDot 1.2s ease infinite; }
+.cm-typing-dots span:nth-child(2) { animation-delay: .2s; }
+.cm-typing-dots span:nth-child(3) { animation-delay: .4s; }
+
+.chat-input-bar { display: flex; gap: 0; border-top: 1px solid var(--divider); flex-shrink: 0; background: var(--bg3); }
+.chat-input-field { flex: 1; background: transparent; border: none; outline: none; color: var(--text-bright); font-family: 'Lato', sans-serif; font-size: .95rem; font-weight: 400; padding: 1.2rem 1.4rem; resize: none; height: 60px; overflow: hidden; }
+.chat-input-field::placeholder { color: rgba(220,210,195,.5); }
+.chat-send-btn { width: 60px; height: 60px; background: var(--gold-dim); border: none; border-left: 1px solid var(--divider); color: var(--text-bright); cursor: pointer; font-size: 1.2rem; transition: background .2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chat-send-btn:hover { background: rgba(220,184,106,.6); }
+.chat-send-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+.chat-who-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--divider); border: 1px solid var(--divider); margin-top: 0.5rem; }
+@media (max-width: 800px) { .chat-who-grid { grid-template-columns: repeat(2, 1fr); } }
+.chat-who-card { background: var(--bg2); padding: 1.2rem 1rem; cursor: pointer; display: flex; gap: .85rem; align-items: center; transition: background .2s; border: 2px solid transparent; overflow: hidden; }
+.chat-who-card:hover { background: var(--bg3); }
+.chat-who-card.selected { border-color: var(--gold-dim); background: rgba(220,184,106,.08); }
+.chat-who-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 1px solid var(--divider-bright); flex-shrink: 0; background: #1a1612; }
+.chat-who-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.chat-who-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-bright); line-height: 1; margin-bottom: .2rem; white-space: nowrap; }
+.chat-who-tag { font-family: 'Cormorant SC', serif; font-size: .48rem; letter-spacing: .15em; color: var(--text-dim); display: block; white-space: nowrap; }
+.chat-who-check { margin-left: auto; color: var(--gold); font-size: .8rem; opacity: 0; flex-shrink: 0; }
+.chat-who-card.selected .chat-who-check { opacity: 1; }
+
+footer { text-align: center; padding: 2.2rem 1.5rem 3.2rem; border-top: 1px solid var(--divider); }
+footer p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; color: var(--text-dim); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<div class="corner-tl"></div>
+<div class="corner-br"></div>
+
+<!-- TICKER -->
+<div class="news-ticker">
+  <div class="ticker-inner">
+    <span class="ticker-tag">BREAKING</span>
+    <span class="ticker-text">
+      Nasution Group Q3 earnings surpass projections by 340%
+      <span class="ticker-dot">◆</span>
+      Varen Togar Nasution spotted stress-vacuuming penthouse at 3AM
+      <span class="ticker-dot">◆</span>
+      Guntur Sanggam Nasution followed unfamiliar student across Suryakencana campus to hand him a nutrient bar
+      <span class="ticker-dot">◆</span>
+      Kaivan Pandu Nasution exhibition SOLD OUT in 11 minutes
+      <span class="ticker-dot">◆</span>
+      Mahesa Saut Nasution played unreleased set inside Varen's office
+      <span class="ticker-dot">◆</span>
+      Rival tech startup dissolves 48hrs after dispute with Anggara Sahat Nasution
+      <span class="ticker-dot">◆</span>
+    </span>
+    <span class="ticker-tag">BREAKING</span>
+    <span class="ticker-text">
+      Nasution Group Q3 earnings surpass projections by 340%
+      <span class="ticker-dot">◆</span>
+      Varen Togar Nasution spotted stress-vacuuming penthouse at 3AM
+      <span class="ticker-dot">◆</span>
+      Guntur Sanggam Nasution followed unfamiliar student across Suryakencana campus to hand him a nutrient bar
+      <span class="ticker-dot">◆</span>
+      Kaivan Pandu Nasution exhibition SOLD OUT in 11 minutes
+      <span class="ticker-dot">◆</span>
+      Mahesa Saut Nasution played unreleased set inside Varen's office
+      <span class="ticker-dot">◆</span>
+      Rival tech startup dissolves 48hrs after dispute with Anggara Sahat Nasution
+      <span class="ticker-dot">◆</span>
+    </span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">The Nasutions</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('home')">Home</button>
+      <button class="nav-tab" onclick="showPage('profiles')">Profiles</button>
+      <button class="nav-tab" onclick="showPage('feed')">Dispatches</button>
+      <button class="nav-tab" onclick="showPage('chat')">Chat</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HOME PAGE ═══════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-eyebrow">✦ &nbsp; Jakarta, Indonesia &nbsp; ✦</div>
+    <h1 class="hero-title"><span class="hero-title-top">The</span>Nasution</h1>
+    <div class="hero-sub">Family &nbsp;·&nbsp; Nasution Group &nbsp;·&nbsp; Est. Jakarta</div>
+    <div class="hero-divider"><hr><span>◆</span><hr></div>
+    <p class="hero-tagline">A family of considerable weight.<br>Five sons. One iron patriarch.<br>One woman who runs them all.</p>
+  </div>
+
+  <div class="home-sections">
+    <div class="section-eyebrow">Explore</div>
+    <h2 class="section-title">Where Would You Like to Go?</h2>
+    <div class="section-rule"><hr><span>◆</span><hr></div>
+    <div class="home-sections-grid">
+      <div class="home-section-card" onclick="showPage('profiles')">
+        <div class="hsc-glyph">◈</div>
+        <div class="hsc-label">Dossiers</div>
+        <div class="hsc-title">Meet the<br>Quintuplets</div>
+        <div class="hsc-hint">Full profiles. Understand who they are and what domain they rule.</div>
+      </div>
+      <div class="home-section-card" onclick="showPage('feed')">
+        <div class="hsc-glyph">◉</div>
+        <div class="hsc-label">Dispatches</div>
+        <div class="hsc-title">Social Media<br>&amp; Feed</div>
+        <div class="hsc-hint">Post tweets, reply to their posts, and read tabloid headlines.</div>
+      </div>
+      <div class="home-section-card" onclick="showPage('chat')">
+        <div class="hsc-glyph">✦</div>
+        <div class="hsc-label">Live Chat</div>
+        <div class="hsc-title">Talk to the<br>Nasutions</div>
+        <div class="hsc-hint">Text chat directly with them. Group or 1-on-1 formats.</div>
+      </div>
+      <div class="home-section-card" onclick="window.open('https://file.garden/aGgA7xAxFEwFoSQZ/Nasutions.html','_blank')">
+        <div class="hsc-glyph">◆</div>
+        <div class="hsc-label">Assessment</div>
+        <div class="hsc-title">Matchmaking<br>Quiz</div>
+        <div class="hsc-hint">Twenty-five scientific questions. One result. Definitively not funded by Varen's black card.</div>
+      </div>
+      <div class="home-section-card" onclick="window.open('https://janitorai.com/search?mode=all&sort=popular&custom_tags=nasutions&page=1','_blank')">
+        <div class="hsc-glyph">◑</div>
+        <div class="hsc-label">JanitorAI</div>
+        <div class="hsc-title">Find Them<br>Here</div>
+        <div class="hsc-hint">They're waiting. The brothers are live on JanitorAI and ready to cause problems.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer><p>The Nasution Family &nbsp;◆&nbsp; Nasution Group &nbsp;◆&nbsp; Jakarta, Indonesia</p></footer>
+</div>
+
+<!-- ═══════════════════════════════ PROFILES PAGE ═══════════════════════════════ -->
+<div id="page-profiles" class="page">
+  <div style="max-width:960px;margin:0 auto;padding:3rem 1.5rem 1.5rem;">
+    <div class="section-eyebrow">Dossiers</div>
+    <h2 class="section-title">The Quintuplets</h2>
+    <div class="section-rule" style="margin-bottom:1.5rem;"><hr><span>◆</span><hr></div>
+  </div>
+
+  <div class="profile-selector-row">
+    <button class="profile-selector-btn active" onclick="showProfile('varen',this)">① Varen</button>
+    <button class="profile-selector-btn" onclick="showProfile('guntur',this)">② Guntur</button>
+    <button class="profile-selector-btn" onclick="showProfile('kaivan',this)">③ Kaivan</button>
+    <button class="profile-selector-btn" onclick="showProfile('mahesa',this)">④ Mahesa</button>
+    <button class="profile-selector-btn" onclick="showProfile('anggara',this)">⑤ Anggara</button>
+  </div>
+
+  <div id="profile-varen" class="profile-pane" style="display:block;">
+    <div class="profile-hero-wrap">
+      <div class="profile-img-frame"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/varen.jpg" alt="Varen" referrerpolicy="no-referrer"></div>
+      <div>
+        <div class="profile-meta-name">Varen</div>
+        <span class="profile-meta-full">Varen Togar Nasution</span>
+        <span class="profile-meta-tag">① The Exhausted Anchor</span>
+        <hr class="profile-meta-divider">
+        <p class="profile-desc-para">Carries everything. Asks for nothing. The natural leader who ensures everyone else is okay first — and quietly deteriorates second. His anger is terrifyingly calm; he whispers instead of yelling, which is considerably worse than yelling.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile-guntur" class="profile-pane" style="display:none;">
+    <div class="profile-hero-wrap">
+      <div class="profile-img-frame"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/guntur.jpg" alt="Guntur" referrerpolicy="no-referrer"></div>
+      <div>
+        <div class="profile-meta-name">Guntur</div>
+        <span class="profile-meta-full">Guntur Sanggam Nasution</span>
+        <span class="profile-meta-tag">② The Grumpy Giant</span>
+        <hr class="profile-meta-divider">
+        <p class="profile-desc-para">Permanent scowl. Faint eyebrow scar. Physically cannot let people be uncomfortable. Will shove food at you without warning or explanation and then pretend it never happened. Loves deeply in the language of brute force and rendang.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile-kaivan" class="profile-pane" style="display:none;">
+    <div class="profile-hero-wrap">
+      <div class="profile-img-frame"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/kaivan.jpg" alt="Kaivan" referrerpolicy="no-referrer"></div>
+      <div>
+        <div class="profile-meta-name">Kaivan</div>
+        <span class="profile-meta-full">Kaivan Pandu Nasution</span>
+        <span class="profile-meta-tag">③ The Artsy Playboy</span>
+        <hr class="profile-meta-divider">
+        <p class="profile-desc-para">Silver rings. Messy hair. Studies your micro-expressions before you finish your sentence. Needs freedom — until suddenly he doesn't. Leaves people on read for hours only to send a blurry indie photo to show he cares.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile-mahesa" class="profile-pane" style="display:none;">
+    <div class="profile-hero-wrap">
+      <div class="profile-img-frame"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/mahesa.jpg" alt="Mahesa" referrerpolicy="no-referrer"></div>
+      <div>
+        <div class="profile-meta-name">Mahesa</div>
+        <span class="profile-meta-full">Mahesa Saut Nasution</span>
+        <span class="profile-meta-tag">④ The Loud One</span>
+        <hr class="profile-meta-divider">
+        <p class="profile-desc-para">Always a song in his head, a guitar pick in his pocket. Breaks tension by being too much, on purpose, until it works. Requires significant external validation and will pay you back with unreasonable amounts of warmth.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile-anggara" class="profile-pane" style="display:none;">
+    <div class="profile-hero-wrap">
+      <div class="profile-img-frame"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/anggara.jpg" alt="Anggara" referrerpolicy="no-referrer"></div>
+      <div>
+        <div class="profile-meta-name">Anggara</div>
+        <span class="profile-meta-full">Anggara Sahat Nasution</span>
+        <span class="profile-meta-tag">⑤ The Silent Genius</span>
+        <hr class="profile-meta-divider">
+        <p class="profile-desc-para">Recognizes people by their footstep cadence. Fixes your problems before you notice them. Sudden physical touch causes internal system crash. Strictly communicates via Google Maps pins, calendar invites, and "Done."</p>
+      </div>
+    </div>
+  </div>
+
+  <footer><p>The Nasution Family &nbsp;◆&nbsp; Nasution Group &nbsp;◆&nbsp; Jakarta, Indonesia</p></footer>
+</div>
+
+<!-- ═══════════════════════════════ FEED PAGE ═══════════════════════════════ -->
+<div id="page-feed" class="page">
+  <div class="full-bleed-wrap feed-section">
+  <section style="max-width:960px; padding-top: 3rem;">
+    <div class="section-eyebrow">Dispatches &amp; Whispers</div>
+    <h2 class="section-title">The Social Feed</h2>
+    <div class="section-rule"><hr><span>◆</span><hr></div>
+
+    <!-- FEED GLOBAL SETUP -->
+    <div class="setup-panel" id="feedSetupPanel">
+      <div class="setup-title">Your Social Profile & Settings</div>
+      <div class="setup-grid">
+        <div><label class="field-label">Your Name</label><input class="field-input global-name" type="text" placeholder="e.g. Maru" maxlength="40" oninput="syncInputs(this, '.global-name')"></div>
+        <div><label class="field-label">Your @Username</label><input class="field-input global-handle" type="text" placeholder="e.g. @maruxx" oninput="syncInputs(this, '.global-handle')"></div>
+        <div class="setup-full">
+          <div class="avatar-upload-wrap">
+            <div class="avatar-preview" id="avatarPreviewFeed" onclick="document.getElementById('avatarFileInput').click()">
+              <span id="avatarPreviewLetterFeed">?</span>
+              <div class="avatar-preview-overlay">change</div>
+            </div>
+            <div class="avatar-upload-info">
+              <label class="field-label">Profile Image</label>
+              <div class="avatar-upload-hint">Shown on your posts &amp; replies. Saved locally.</div>
+              <div class="avatar-upload-btns">
+                <button class="avatar-btn avatar-btn-upload" onclick="document.getElementById('avatarFileInput').click()">Upload Image</button>
+                <button class="avatar-btn avatar-btn-remove" id="avatarRemoveBtnFeed" style="display:none" onclick="removeAvatar()">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="field-label">Era</label>
+          <select class="field-select global-era" onchange="syncInputs(this, '.global-era')">
+            <option value="college">College Era — Suryakencana Institute</option>
+            <option value="adult">Adult Era — Post-graduation</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">Relationship to the Family</label>
+          <select class="field-select global-rel" onchange="syncInputs(this, '.global-rel')">
+            <option value="friend">Friend / Acquaintance</option>
+            <option value="lover-varen">Varen's Lover / Partner</option>
+            <option value="lover-guntur">Guntur's Lover / Partner</option>
+            <option value="lover-kaivan">Kaivan's Lover / Partner</option>
+            <option value="lover-mahesa">Mahesa's Lover / Partner</option>
+            <option value="lover-anggara">Anggara's Lover / Partner</option>
+            <option value="mother">The Mother / Firman's Wife</option>
+            <option value="rival">Rival / Campus Nemesis</option>
+          </select>
+        </div>
+        <div class="setup-full" style="border-top: 1px solid var(--divider); padding-top: 1rem; margin-top: .5rem;">
+          <label class="field-label">API Settings</label>
+          <select class="field-select global-apimode" onchange="syncInputs(this, '.global-apimode'); toggleApiFieldsAll()">
+            <option value="free">Free Tier (10 req/day, ends 25/04/2026)</option>
+            <option value="custom">Custom API / Proxy</option>
+          </select>
+        </div>
+        <div class="setup-full custom-api-fields global-apibox">
+          <div style="grid-column: 1 / -1;"><label class="field-label">Proxy / API URL</label><input class="field-input global-apiurl" type="text" placeholder="https://api.openai.com/v1/chat/completions" oninput="syncInputs(this, '.global-apiurl')"></div>
+          <div><label class="field-label">API Key</label><input class="field-input global-apikey" type="password" placeholder="sk-..." oninput="syncInputs(this, '.global-apikey')"></div>
+          <div><label class="field-label">Model Name</label><input class="field-input global-apimodel" type="text" placeholder="gpt-4o, claude-3-opus, etc." oninput="syncInputs(this, '.global-apimodel')"></div>
+        </div>
+      </div>
+      <button class="primary-btn" style="margin-top: 1.5rem;" onclick="document.getElementById('feedSetupPanel').style.display='none'; document.getElementById('feedComposeBox').style.display='block';">Save & View Feed</button>
+    </div>
+
+    <!-- COMPOSE TWEET -->
+    <div class="feed-compose-wrap" id="feedComposeBox" style="display:none;">
+      <div class="feed-compose-label">POST TO FEED</div>
+      <textarea class="feed-compose-area" id="socialComposeText" rows="3" placeholder="What's happening in Jakarta? Mention a Nasution to get their attention..."></textarea>
+      <div class="feed-compose-footer">
+        <span style="font-family:'Space Mono'; font-size:.5rem; color:var(--text-dim);" id="socialLimitText">Ready</span>
+        <button class="feed-compose-btn" id="socialComposeBtn" onclick="postSocialNew()">Post Update</button>
+      </div>
+    </div>
+
+    <div class="feed-grid" id="feedGrid">
+      
+      <!-- GROUP CHAT PREVIEW -->
+      <div class="feed-card type-groupchat">
+        <div class="groupchat-header"><span class="groupchat-name">rumah</span> &nbsp;· 7 members</div>
+        <div class="chat-bubble-wrap">
+          <div class="chat-bubble"><div class="chat-bubble-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/varen.jpg" referrerpolicy="no-referrer"></div><div class="chat-bubble-body"><div class="chat-bubble-name">1st</div><div class="chat-bubble-text">Whoever left the estate kitchen in that condition last night, I need you to sit with what you've done. I stress-cleaned it at 2AM. I am fine. This is fine. Please just clean up after yourselves.</div></div></div>
+          <div class="chat-bubble"><div class="chat-bubble-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/mahesa.jpg" referrerpolicy="no-referrer"></div><div class="chat-bubble-body"><div class="chat-bubble-name">4th</div><div class="chat-bubble-text">bro said "i am fine" 💀💀 kak varen it's 2am</div></div></div>
+          <div class="chat-bubble"><div class="chat-bubble-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/guntur.jpg" referrerpolicy="no-referrer"></div><div class="chat-bubble-body"><div class="chat-bubble-name">2nd</div><div class="chat-bubble-text">gue masak buat semua orang???</div></div></div>
+          <div class="chat-meta">my istri, 1st, 2nd, 4th, and 3 others &nbsp;·&nbsp; 2:34 AM</div>
+        </div>
+      </div>
+
+      <!-- TABLOID — Guntur -->
+      <div class="feed-card type-tabloid">
+        <div class="feed-tabloid-tag">EXCLUSIVE</div>
+        <div class="feed-tabloid-headline">GUNTUR NASUTION FOLLOWS "VISIBLY TIRED" STUDENT ACROSS SURYAKENCANA CAMPUS TO HAND HIM A NUTRIENT BAR</div>
+        <div class="feed-tabloid-body">No words were exchanged. Guntur Sanggam Nasution, 22, approached the first-year from behind, placed a nutrient bar in his hand, and walked away. The student stood in place for several seconds. "I don't know what just happened," he told a friend shortly after. "But I feel cared for."</div>
+        <div class="feed-tabloid-source">— Suryakencana Campus Gazette</div>
+      </div>
+
+      <!-- SOCIETY — Kaivan -->
+      <div class="feed-card type-society">
+        <div class="feed-society-ornament">◈ &nbsp; Social Observation</div>
+        <div class="feed-society-text"><strong>Kaivan Pandu Nasution</strong> was photographed at a South Jakarta café with an unidentified companion last Tuesday. This is the third such sighting this month. Each companion, when reached separately, used the exact same words: <em>"He's not like that at all, actually."</em> None of them elaborated.</div>
+        <div class="feed-society-sig">Jakarta Socials Weekly &nbsp;·&nbsp; Issue 219</div>
+      </div>
+
+      <!-- X — Mahesa -->
+      <div class="feed-card type-x">
+        <div class="feed-header">
+          <div class="feed-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/mahesa.jpg" referrerpolicy="no-referrer"></div>
+          <div class="feed-handle"><strong>mahesa nasution 🎸</strong>@mahesasaut · ✓</div>
+        </div>
+        <div class="feed-x-text" id="mahesa-post-text">just played an unreleased song at varen's office bc he "looked tense" 🎶 he called security. i played THROUGH it. security stayed to listen 🙏 varen is still tense but that is a him problem and also a great sign bc it means the song hits</div>
+        
+        <div class="x-action-bar">
+          <div class="x-action-btn" onclick="prepReply('replybox-mahesa1', 'input-mahesa1', '@mahesasaut')">💬 Reply</div>
+          <div class="x-action-btn">↳↰ Repost</div>
+          <div class="x-action-btn">♡ Like</div>
+        </div>
+        
+        <div class="thread-replies" id="threads-mahesa1"></div>
+        <div class="x-reply-box" id="replybox-mahesa1">
+          <div class="x-reply-input-wrap">
+            <input type="text" class="x-reply-input" id="input-mahesa1" placeholder="Tweet your reply...">
+            <button class="x-reply-send" onclick="sendSocialReply('replybox-mahesa1', 'input-mahesa1', 'threads-mahesa1', 'Mahesa', 'just played an unreleased song at varens office bc he looked tense...')">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLOID — Anggara -->
+      <div class="feed-card type-tabloid">
+        <div class="feed-tabloid-tag">DEVELOPING</div>
+        <div class="feed-tabloid-headline">RIVAL TECH STARTUP DISSOLVES 48 HOURS AFTER PUBLIC DISPUTE WITH ANGGARA NASUTION. HE ATTENDED 8AM CLASS AS USUAL. HE BROUGHT HIS OWN COFFEE. IT WAS VERY GOOD COFFEE.</div>
+        <div class="feed-tabloid-body">Authorities are not investigating. When a reporter attempted to approach him outside Suryakencana Institute, he looked up from his laptop, held eye contact for three seconds, and looked back down. The reporter left.</div>
+        <div class="feed-tabloid-source">— Bisnis Jakarta, Breaking Desk</div>
+      </div>
+      
+      <!-- SOCIETY — Firman -->
+      <div class="feed-card type-society">
+        <div class="feed-society-ornament">◈ &nbsp; The Patriarch</div>
+        <div class="feed-society-text"><strong>Firman Rahardja Nasution</strong> has not missed a Sunday family lunch in twenty-two years. Not once for a merger. Not once for a state matter. In a 2019 interview, he was asked how he managed it. He was quiet for a long moment. Then he said: <em>"My wife makes the schedule."</em></div>
+        <div class="feed-society-sig">Jakarta Society Quarterly &nbsp;·&nbsp; The Patriarch Issue</div>
+      </div>
+
+      <!-- X — Suryakencana confessions -->
+      <div class="feed-card type-x">
+        <div class="feed-header">
+          <div class="feed-avatar"><div class="feed-avatar-placeholder">SI</div></div>
+          <div class="feed-handle"><strong>suryakencana confessions</strong>@sikonfes · anon</div>
+        </div>
+        <div class="feed-x-text">submission: "anggara nasution corrected our professor mid-lecture. with sources. printed. the professor said thank you and asked if he had time to consult on the next module. anggara said he'd check his schedule. he has not checked his schedule. that was four weeks ago. i am not fine with this."</div>
+        
+        <div class="x-action-bar">
+          <div class="x-action-btn" onclick="prepReply('replybox-anon1', 'input-anon1', '@sikonfes')">💬 Reply</div>
+        </div>
+        
+        <div class="thread-replies" id="threads-anon1"></div>
+        <div class="x-reply-box" id="replybox-anon1">
+          <div class="x-reply-input-wrap">
+            <input type="text" class="x-reply-input" id="input-anon1" placeholder="Tweet your reply...">
+            <button class="x-reply-send" onclick="sendSocialReply('replybox-anon1', 'input-anon1', 'threads-anon1', 'Campus Confessions', 'anggara nasution corrected our professor mid-lecture...')">Send</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  </div>
+  <footer><p>The Nasution Family &nbsp;◆&nbsp; Nasution Group &nbsp;◆&nbsp; Jakarta, Indonesia</p></footer>
+</div>
+
+<!-- ══ CHAT HISTORY SIDEBAR ══ -->
+<div class="ch-overlay" id="chOverlay" onclick="closeHistorySidebar()"></div>
+<div class="ch-sidebar" id="chSidebar">
+  <div class="ch-sidebar-head">
+    <span class="ch-sidebar-title">◈ &nbsp; Chat History</span>
+    <button class="ch-sidebar-close" onclick="closeHistorySidebar()">✕</button>
+  </div>
+  <div class="ch-list" id="chList">
+    <div class="ch-empty">No saved chats yet.</div>
+  </div>
+  <div class="ch-sidebar-footer">
+    <button class="ch-clear-all" onclick="clearAllHistory()">⚠ Delete All History</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ CHAT PAGE ═══════════════════════════════ -->
+<div id="page-chat" class="page">
+  <div class="chat-page-wrap">
+    <div class="section-eyebrow" style="text-align:center;margin-bottom:.85rem;">Live Chat</div>
+    <h2 class="section-title" style="margin-bottom:.55rem;">Talk to the Nasutions</h2>
+    <div class="section-rule" style="margin-bottom:2rem;"><hr><span>◆</span><hr></div>
+
+    <div class="setup-panel" id="chatSetupPanel">
+      <div class="setup-title">Your Profile & Settings</div>
+      <div class="setup-grid">
+        <div><label class="field-label">Your Name</label><input class="field-input global-name" type="text" placeholder="e.g. Maru" maxlength="40" oninput="syncInputs(this, '.global-name')"></div>
+        <div><label class="field-label">Your @Username</label><input class="field-input global-handle" type="text" placeholder="e.g. @maruxx" oninput="syncInputs(this, '.global-handle')"></div>
+
+        <div class="setup-full">
+          <div class="avatar-upload-wrap">
+            <div class="avatar-preview" id="avatarPreview" onclick="document.getElementById('avatarFileInput').click()">
+              <span id="avatarPreviewLetter">?</span>
+              <div class="avatar-preview-overlay">change</div>
+            </div>
+            <div class="avatar-upload-info">
+              <label class="field-label">Profile Image</label>
+              <div class="avatar-upload-hint">Shown on your chat bubbles, posts &amp; replies. Saved locally.</div>
+              <div class="avatar-upload-btns">
+                <button class="avatar-btn avatar-btn-upload" onclick="document.getElementById('avatarFileInput').click()">Upload Image</button>
+                <button class="avatar-btn avatar-btn-remove" id="avatarRemoveBtn" style="display:none" onclick="removeAvatar()">Remove</button>
+              </div>
+            </div>
+          </div>
+          <input type="file" id="avatarFileInput" accept="image/*" onchange="handleAvatarUpload(this)">
+        </div>
+        <div>
+          <label class="field-label">Era</label>
+          <select class="field-select global-era" onchange="syncInputs(this, '.global-era')">
+            <option value="college">College Era — Suryakencana</option>
+            <option value="adult">Adult Era — Post-graduation</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">Relationship to Family</label>
+          <select class="field-select global-rel" onchange="syncInputs(this, '.global-rel')">
+            <option value="friend">Friend / Acquaintance</option>
+            <option value="lover-varen">Varen's Lover / Partner</option>
+            <option value="lover-guntur">Guntur's Lover / Partner</option>
+            <option value="lover-kaivan">Kaivan's Lover / Partner</option>
+            <option value="lover-mahesa">Mahesa's Lover / Partner</option>
+            <option value="lover-anggara">Anggara's Lover / Partner</option>
+            <option value="mother">The Mother / Firman's Wife</option>
+            <option value="rival">Rival / Campus Nemesis</option>
+          </select>
+        </div>
+        
+        <div class="setup-full" style="border-top: 1px solid var(--divider); padding-top: 1.5rem;">
+          <label class="field-label">Who Would You Like to Chat With?</label>
+          <div class="chat-who-grid" id="chatWhoGrid">
+            <div class="chat-who-card selected" data-who="group" onclick="selectWho(this)"><div class="chat-who-avatar" style="display:flex;align-items:center;justify-content:center;font-family:'Cormorant SC',serif;font-size:.65rem;color:var(--gold);">BROS</div><div><div class="chat-who-name">Brothers</div><span class="chat-who-tag">The 5 sons — rumah</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="group-family" onclick="selectWho(this)"><div class="chat-who-avatar" style="display:flex;align-items:center;justify-content:center;font-family:'Cormorant SC',serif;font-size:.65rem;color:var(--gold);">FAM</div><div><div class="chat-who-name">Family</div><span class="chat-who-tag">All 6 — keluarga</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="firman" onclick="selectWho(this)"><div class="chat-who-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/firman.jpg" referrerpolicy="no-referrer"></div><div><div class="chat-who-name">Firman</div><span class="chat-who-tag">The Patriarch</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="varen" onclick="selectWho(this)"><div class="chat-who-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/varen.jpg" referrerpolicy="no-referrer"></div><div><div class="chat-who-name">Varen</div><span class="chat-who-tag">① The Eldest</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="guntur" onclick="selectWho(this)"><div class="chat-who-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/guntur.jpg" referrerpolicy="no-referrer"></div><div><div class="chat-who-name">Guntur</div><span class="chat-who-tag">② The Giant</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="kaivan" onclick="selectWho(this)"><div class="chat-who-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/kaivan.jpg" referrerpolicy="no-referrer"></div><div><div class="chat-who-name">Kaivan</div><span class="chat-who-tag">③ The Artist</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="mahesa" onclick="selectWho(this)"><div class="chat-who-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/mahesa.jpg" referrerpolicy="no-referrer"></div><div><div class="chat-who-name">Mahesa</div><span class="chat-who-tag">④ The Loud One</span></div><div class="chat-who-check">◆</div></div>
+            <div class="chat-who-card" data-who="anggara" onclick="selectWho(this)"><div class="chat-who-avatar"><img src="https://file.garden/aGgA7xAxFEwFoSQZ/anggara.jpg" referrerpolicy="no-referrer"></div><div><div class="chat-who-name">Anggara</div><span class="chat-who-tag">⑤ The Genius</span></div><div class="chat-who-check">◆</div></div>
+          </div>
+        </div>
+
+        <div class="setup-full" style="border-top: 1px solid var(--divider); padding-top: 1.5rem;">
+          <label class="field-label">API Settings</label>
+          <select class="field-select global-apimode" onchange="syncInputs(this, '.global-apimode'); toggleApiFieldsAll()">
+            <option value="free">Free Tier (10 req/day, ends 25/04/2026)</option>
+            <option value="custom">Custom API / Proxy</option>
+          </select>
+        </div>
+        <div class="setup-full custom-api-fields global-apibox">
+          <div style="grid-column: 1 / -1;"><label class="field-label">Proxy / API URL</label><input class="field-input global-apiurl" type="text" placeholder="https://api.openai.com/v1/chat/completions" oninput="syncInputs(this, '.global-apiurl')"></div>
+          <div><label class="field-label">API Key</label><input class="field-input global-apikey" type="password" placeholder="sk-..." oninput="syncInputs(this, '.global-apikey')"></div>
+          <div><label class="field-label">Model Name</label><input class="field-input global-apimodel" type="text" placeholder="gpt-4o, claude-3-opus, etc." oninput="syncInputs(this, '.global-apimodel')"></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:.8rem;margin-top:2rem;">
+        <button class="primary-btn" onclick="startChat()">Enter Chat</button>
+        <button class="primary-btn" onclick="openHistorySidebar()" style="background:var(--bg3);color:var(--gold);border:1px solid var(--gold-dim);flex:0 0 auto;width:auto;padding:1.1rem 1.6rem;">🕐</button>
+      </div>
+    </div>
+
+    <!-- CHAT WINDOW -->
+    <div class="chat-window-wrap" id="chatWindow">
+      <div class="chat-window-header">
+        <div class="chat-window-avatars" id="chatWindowAvatars"></div>
+        <div class="chat-window-meta">
+          <div class="chat-window-name" id="chatWindowName">rumah</div>
+          <div class="chat-window-sub" id="chatWindowSub">group chat · 5 members</div>
+        </div>
+        <button class="chat-edit-btn" onclick="openHistorySidebar()" style="margin-right:.4rem;">🕐 History</button>
+        <button class="chat-edit-btn" onclick="editChatSetup()">Edit Setup</button>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input-bar">
+        <input class="chat-input-field" id="chatInput" type="text" placeholder="Type a message..." maxlength="500" autocomplete="off" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}">
+        <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMsg()">➤</button>
+      </div>
+    </div>
+  </div>
+  <footer><p>The Nasution Family &nbsp;◆&nbsp; Nasution Group &nbsp;◆&nbsp; Jakarta, Indonesia</p></footer>
+</div>
+
+<!-- ══ CONFIRM MODAL ══ -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-box-title">Confirm Delete</div>
+    <div class="confirm-box-msg" id="confirmMsg">Are you sure?</div>
+    <div class="confirm-box-btns">
+      <button class="confirm-yes" id="confirmYesBtn">Delete</button>
+      <button class="confirm-no" onclick="closeConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function initFeedCards() {
+  document.querySelectorAll('#feedGrid .feed-card').forEach(card => card.classList.add('visible'));
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const tabMap = {home:'Home',profiles:'Profiles',feed:'Dispatches',chat:'Chat'};
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.textContent.trim() === tabMap[id]));
+  window.scrollTo(0,0);
+  if (id === 'feed') initFeedCards();
+}
+
+function showProfile(name, btn) {
+  document.querySelectorAll('[id^="profile-"]').forEach(p => { if (p.id.includes('-')) p.style.display = 'none'; });
+  document.getElementById('profile-' + name).style.display = 'block';
+  document.querySelectorAll('.profile-selector-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function syncInputs(source, classSelector) {
+  const val = source.value;
+  document.querySelectorAll(classSelector).forEach(el => el.value = val);
+  saveToLocal();
+  if (classSelector === '.global-name') applyAvatarToUI();
+}
+
+function saveToLocal() {
+  const data = {
+    name: document.querySelector('.global-name').value,
+    handle: document.querySelector('.global-handle').value,
+    era: document.querySelector('.global-era').value,
+    rel: document.querySelector('.global-rel').value,
+    apimode: document.querySelector('.global-apimode').value,
+    apiurl: document.querySelector('.global-apiurl').value,
+    apikey: document.querySelector('.global-apikey').value,
+    apimodel: document.querySelector('.global-apimodel').value
+  };
+  localStorage.setItem('nasution_profile_settings', JSON.stringify(data));
+}
+
+function loadFromLocal() {
+  const saved = localStorage.getItem('nasution_profile_settings');
+  if (saved) {
+    const data = JSON.parse(saved);
+    document.querySelectorAll('.global-name').forEach(el => el.value = data.name || '');
+    document.querySelectorAll('.global-handle').forEach(el => el.value = data.handle || '');
+    document.querySelectorAll('.global-era').forEach(el => el.value = data.era || 'college');
+    document.querySelectorAll('.global-rel').forEach(el => el.value = data.rel || 'friend');
+    document.querySelectorAll('.global-apimode').forEach(el => el.value = data.apimode || 'free');
+    document.querySelectorAll('.global-apiurl').forEach(el => el.value = data.apiurl || '');
+    document.querySelectorAll('.global-apikey').forEach(el => el.value = data.apikey || '');
+    document.querySelectorAll('.global-apimodel').forEach(el => el.value = data.apimodel || '');
+  }
+  toggleApiFieldsAll();
+  loadAvatarFromLocal();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// USER AVATAR
+// ══════════════════════════════════════════════════════════════════
+const AVATAR_KEY = 'nasution_user_avatar';
+let userAvatar = null; // base64 data URL
+
+function getUserAvatarHtml(initial) {
+  if (userAvatar) return `<img src="${userAvatar}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:50%;">`;
+  return `<div class="cm-avatar-placeholder">${initial}</div>`;
+}
+
+function getFeedAvatarHtml(initial) {
+  if (userAvatar) return `<img src="${userAvatar}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">`;
+  return `<div class="feed-avatar-placeholder">${initial}</div>`;
+}
+
+function getThreadAvatarHtml(initial) {
+  if (userAvatar) return `<img src="${userAvatar}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">`;
+  return `<div class="feed-avatar-placeholder">${initial}</div>`;
+}
+
+function handleAvatarUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    userAvatar = e.target.result;
+    try { localStorage.setItem(AVATAR_KEY, userAvatar); } catch(err) {
+      // Storage quota — compress by reducing quality via canvas
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX = 256;
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        userAvatar = canvas.toDataURL('image/jpeg', 0.7);
+        try { localStorage.setItem(AVATAR_KEY, userAvatar); } catch(e2) {}
+        applyAvatarToUI();
+      };
+      img.src = e.target.result;
+      return;
+    }
+    applyAvatarToUI();
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function loadAvatarFromLocal() {
+  const saved = localStorage.getItem(AVATAR_KEY);
+  if (saved) { userAvatar = saved; applyAvatarToUI(); }
+}
+
+function applyAvatarToUI() {
+  const initial = document.querySelector('.global-name')?.value?.charAt(0)?.toUpperCase() || '?';
+  // Chat setup preview
+  const prev = document.getElementById('avatarPreview');
+  if (prev) {
+    prev.innerHTML = userAvatar
+      ? `<img src="${userAvatar}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"><div class="avatar-preview-overlay">change</div>`
+      : `<span id="avatarPreviewLetter">${initial}</span><div class="avatar-preview-overlay">change</div>`;
+  }
+  const removeBtn = document.getElementById('avatarRemoveBtn');
+  if (removeBtn) removeBtn.style.display = userAvatar ? 'inline-block' : 'none';
+  // Feed setup preview
+  const prevFeed = document.getElementById('avatarPreviewFeed');
+  if (prevFeed) {
+    prevFeed.innerHTML = userAvatar
+      ? `<img src="${userAvatar}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"><div class="avatar-preview-overlay">change</div>`
+      : `<span id="avatarPreviewLetterFeed">${initial}</span><div class="avatar-preview-overlay">change</div>`;
+  }
+  const removeBtnFeed = document.getElementById('avatarRemoveBtnFeed');
+  if (removeBtnFeed) removeBtnFeed.style.display = userAvatar ? 'inline-block' : 'none';
+}
+
+function removeAvatar() {
+  userAvatar = null;
+  localStorage.removeItem(AVATAR_KEY);
+  applyAvatarToUI();
+}
+
+function toggleApiFieldsAll() {
+  const mode = document.querySelector('.global-apimode').value;
+  document.querySelectorAll('.global-apibox').forEach(el => el.style.display = mode === 'custom' ? 'grid' : 'none');
+  updateUIForLimit();
+}
+window.addEventListener('DOMContentLoaded', () => { loadFromLocal(); initFeedCards(); restoreFeedFromLocal(); bootChat(); });
+
+// ══════════════════════════════════════════════════════════════════
+// CONFIRM MODAL
+// ══════════════════════════════════════════════════════════════════
+let _confirmCallback = null;
+function showConfirm(msg, callback) {
+  document.getElementById('confirmMsg').textContent = msg;
+  _confirmCallback = callback;
+  document.getElementById('confirmOverlay').classList.add('active');
+}
+function closeConfirm() {
+  document.getElementById('confirmOverlay').classList.remove('active');
+  _confirmCallback = null;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('confirmYesBtn').addEventListener('click', () => { if (_confirmCallback) _confirmCallback(); closeConfirm(); });
+  document.getElementById('confirmOverlay').addEventListener('click', function(e) { if (e.target === this) closeConfirm(); });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// CHAT HISTORY SYSTEM
+// ══════════════════════════════════════════════════════════════════
+const HISTORY_KEY = 'nasution_chat_history';
+const ACTIVE_KEY  = 'nasution_chat_active';
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch(e) { return[]; }
+}
+function saveHistory(arr) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); } catch(e) {}
+}
+
+// Build a human-readable title for a session
+function sessionTitle(session) {
+  let who = session.who;
+  if (who === 'group') who = 'rumah';
+  else if (who === 'group-family') who = 'keluarga';
+  else who = CHAR_DATA[who]?.name || who;
+  
+  const d = new Date(session.timestamp);
+  const dateStr = d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'2-digit' });
+  const msgs = session.messages ? session.messages.filter(m => m.role === 'user').length : 0;
+  return { who, dateStr, msgs };
+}
+
+// Save current in-progress chat to history (upsert by id)
+function saveCurrentToHistory() {
+  const msgs = chatMessages.filter(m => m.role);
+  if (!msgs.length) return;
+
+  const history = getHistory();
+  const existing = history.findIndex(s => s.id === currentSessionId);
+  const session = {
+    id: currentSessionId,
+    who: selectedWho,
+    timestamp: currentSessionTimestamp,
+    messages: msgs,
+    system: chatMessages._system || '',
+    htmlSnapshot: document.getElementById('chatMessages')?.innerHTML || ''
+  };
+
+  if (existing >= 0) history[existing] = session;
+  else history.unshift(session);
+
+  // cap at 30 sessions
+  if (history.length > 30) history.splice(30);
+  saveHistory(history);
+}
+
+// Restore a session by id
+function loadSession(sessionId) {
+  const history = getHistory();
+  const session = history.find(s => s.id === sessionId);
+  if (!session) return;
+
+  // Save current first
+  saveCurrentToHistory();
+
+  currentSessionId = session.id;
+  currentSessionTimestamp = session.timestamp;
+  selectedWho = session.who || 'group';
+  chatMessages =[...session.messages];
+  chatMessages._system = session.system || '';
+
+  // Update who selector
+  document.querySelectorAll('.chat-who-card').forEach(c => c.classList.toggle('selected', c.dataset.who === selectedWho));
+
+  const isGroup = selectedWho === 'group' || selectedWho === 'group-family';
+  const isFamily = selectedWho === 'group-family';
+  document.getElementById('chatWindowName').textContent = isFamily ? 'keluarga' : (isGroup ? 'rumah' : (CHAR_DATA[selectedWho]?.name || selectedWho));
+  document.getElementById('chatWindowSub').textContent = isFamily ? 'group chat · 6 members' : (isGroup ? 'group chat · 5 brothers' : 'private chat');
+
+  const avatarsEl = document.getElementById('chatWindowAvatars');
+  avatarsEl.innerHTML = '';
+  const keys = isFamily ?['firman','varen','guntur','kaivan','mahesa','anggara'] : (isGroup ?['varen','guntur','kaivan','mahesa','anggara'] : [selectedWho]);
+  keys.forEach(k => avatarsEl.insertAdjacentHTML('beforeend', `<div class="cwa"><img src="${CHAR_DATA[k].img}" referrerpolicy="no-referrer"></div>`));
+
+  document.getElementById('chatSetupPanel').style.display = 'none';
+  document.getElementById('chatWindow').classList.add('active');
+  if (session.htmlSnapshot) document.getElementById('chatMessages').innerHTML = session.htmlSnapshot;
+  updateUIForLimit();
+  setTimeout(() => { const c = document.getElementById('chatMessages'); if(c) c.scrollTop = c.scrollHeight; }, 80);
+
+  closeHistorySidebar();
+  renderHistorySidebar();
+}
+
+function deleteSession(sessionId, e) {
+  e.stopPropagation();
+  showConfirm('Delete this chat? This cannot be undone.', () => {
+    const history = getHistory().filter(s => s.id !== sessionId);
+    saveHistory(history);
+    renderHistorySidebar();
+  });
+}
+
+function clearAllHistory() {
+  showConfirm('Delete ALL saved chat history?', () => {
+    localStorage.removeItem(HISTORY_KEY);
+    renderHistorySidebar();
+  });
+}
+
+function renderHistorySidebar() {
+  const list = document.getElementById('chList');
+  const history = getHistory();
+  if (!history.length) {
+    list.innerHTML = '<div class="ch-empty">No saved chats yet.</div>';
+    return;
+  }
+  list.innerHTML = history.map(session => {
+    const { who, dateStr, msgs } = sessionTitle(session);
+    const isActive = session.id === currentSessionId;
+    const imgKey = (session.who !== 'group' && session.who !== 'group-family') ? session.who : null;
+    const avatarHtml = imgKey
+      ? `<img src="${CHAR_DATA[imgKey].img}" referrerpolicy="no-referrer">`
+      : `<span style="font-size: .45rem;">${session.who === 'group-family' ? 'FAM' : 'BROS'}</span>`;
+    return `
+      <div class="ch-item${isActive ? ' active-session' : ''}" onclick="loadSession('${session.id}')">
+        <div class="ch-item-avatar">${avatarHtml}</div>
+        <div class="ch-item-body">
+          <div class="ch-item-name">${who}</div>
+          <div class="ch-item-meta">${dateStr} &nbsp;·&nbsp; ${msgs} msg${msgs !== 1 ? 's' : ''}</div>
+        </div>
+        <button class="ch-item-del" onclick="deleteSession('${session.id}', event)" title="Delete">✕</button>
+      </div>`;
+  }).join('');
+}
+
+function openHistorySidebar() {
+  renderHistorySidebar();
+  document.getElementById('chSidebar').classList.add('active');
+  document.getElementById('chOverlay').classList.add('active');
+}
+
+function closeHistorySidebar() {
+  document.getElementById('chSidebar').classList.remove('active');
+  document.getElementById('chOverlay').classList.remove('active');
+}
+
+// Boot: restore last active session or just load settings
+function bootChat() {
+  const history = getHistory();
+  if (history.length) {
+    const last = history[0];
+    currentSessionId = last.id;
+    currentSessionTimestamp = last.timestamp;
+    selectedWho = last.who || 'group';
+    chatMessages = [...last.messages];
+    chatMessages._system = last.system || '';
+
+    document.querySelectorAll('.chat-who-card').forEach(c => c.classList.toggle('selected', c.dataset.who === selectedWho));
+
+    const isGroup = selectedWho === 'group' || selectedWho === 'group-family';
+    const isFamily = selectedWho === 'group-family';
+    document.getElementById('chatWindowName').textContent = isFamily ? 'keluarga' : (isGroup ? 'rumah' : (CHAR_DATA[selectedWho]?.name || selectedWho));
+    document.getElementById('chatWindowSub').textContent = isFamily ? 'group chat · 6 members' : (isGroup ? 'group chat · 5 brothers' : 'private chat');
+
+    const avatarsEl = document.getElementById('chatWindowAvatars');
+    if (avatarsEl) {
+      avatarsEl.innerHTML = '';
+      const keys = isFamily ?['firman','varen','guntur','kaivan','mahesa','anggara'] : (isGroup ? ['varen','guntur','kaivan','mahesa','anggara'] :[selectedWho]);
+      keys.forEach(k => avatarsEl.insertAdjacentHTML('beforeend', `<div class="cwa"><img src="${CHAR_DATA[k].img}" referrerpolicy="no-referrer"></div>`));
+    }
+
+    if (last.htmlSnapshot && last.messages.length) {
+      document.getElementById('chatSetupPanel').style.display = 'none';
+      document.getElementById('chatWindow').classList.add('active');
+      document.getElementById('chatMessages').innerHTML = last.htmlSnapshot;
+      updateUIForLimit();
+      setTimeout(() => { const c = document.getElementById('chatMessages'); if(c) c.scrollTop = c.scrollHeight; }, 80);
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FEED PERSISTENCE
+// ══════════════════════════════════════════════════════════════════
+const FEED_SAVE_KEY = 'nasution_feed_posts';
+
+function saveFeedToLocal() {
+  try {
+    const userCards =[];
+    document.querySelectorAll('#feedGrid .feed-card[data-user-post="true"]').forEach(card => {
+      userCards.push({ cardId: card.dataset.cardId, html: card.outerHTML });
+    });
+    localStorage.setItem(FEED_SAVE_KEY, JSON.stringify({ cards: userCards, histories: socialHistories }));
+  } catch(e) {}
+}
+
+function restoreFeedFromLocal() {
+  const raw = localStorage.getItem(FEED_SAVE_KEY);
+  if (!raw) return;
+  try {
+    const saved = JSON.parse(raw);
+    if (saved.histories) Object.assign(socialHistories, saved.histories);
+    if (saved.cards && saved.cards.length) {
+      const grid = document.getElementById('feedGrid');
+      saved.cards.forEach(({ html }) => grid.insertAdjacentHTML('afterbegin', html));
+      initFeedCards();
+    }
+    showFeedSavedNotice();
+  } catch(e) {}
+}
+
+function showFeedSavedNotice() {
+  const raw = localStorage.getItem(FEED_SAVE_KEY);
+  if (!raw || document.getElementById('feedSavedNotice')) return;
+  try {
+    const saved = JSON.parse(raw);
+    const count = saved.cards ? saved.cards.length : 0;
+    if (!count) return;
+    const anchor = document.getElementById('feedComposeBox') || document.getElementById('feedGrid');
+    if (!anchor) return;
+    const notice = document.createElement('div');
+    notice.id = 'feedSavedNotice';
+    notice.className = 'saved-notice';
+    notice.innerHTML = `
+      <div class="saved-notice-text">◈ Saved feed posts found
+        <span>${count} user post${count !== 1 ? 's' : ''} restored</span>
+      </div>
+      <div class="clear-btn-row">
+        <button class="clear-btn" onclick="clearFeedData()">Delete Posts</button>
+      </div>`;
+    anchor.parentNode.insertBefore(notice, anchor);
+  } catch(e) {}
+}
+
+function clearFeedData() {
+  showConfirm('Delete all your saved feed posts and thread replies?', () => {
+    localStorage.removeItem(FEED_SAVE_KEY);
+    document.querySelectorAll('#feedGrid .feed-card[data-user-post="true"]').forEach(c => c.remove());
+    Object.keys(socialHistories).forEach(k => { if (k.startsWith('threads-post-')) delete socialHistories[k]; });
+    const notice = document.getElementById('feedSavedNotice');
+    if (notice) notice.remove();
+  });
+}
+
+function clearAllSavedData() {
+  showConfirm('Delete ALL saved data — chat history, feed posts, and profile settings?', () => {
+    localStorage.removeItem(HISTORY_KEY);
+    localStorage.removeItem(ACTIVE_KEY);
+    localStorage.removeItem(FEED_SAVE_KEY);
+    localStorage.removeItem('nasution_profile_settings');
+    chatMessages =[];
+    document.getElementById('chatMessages').innerHTML = '';
+    document.getElementById('chatWindow').classList.remove('active');
+    document.getElementById('chatSetupPanel').style.display = 'block';
+    document.querySelectorAll('#feedGrid .feed-card[data-user-post="true"]').forEach(c => c.remove());
+    Object.keys(socialHistories).forEach(k => delete socialHistories[k]);
+    const fn = document.getElementById('feedSavedNotice');
+    if (fn) fn.remove();
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
+// API & RATE LIMIT LOGIC
+// ══════════════════════════════════════════════════════════════════
+const FREE_API_URL = "https://key-vault--malareissu.replit.app/api/chat";
+
+const CHAR_DATA = {
+  varen: { name: 'Varen', label: '1st · Varen', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/varen.jpg' },
+  guntur: { name: 'Guntur', label: '2nd · Guntur', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/guntur.jpg' },
+  kaivan: { name: 'Kaivan', label: '3rd · Kaivan', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/kaivan.jpg' },
+  mahesa: { name: 'Mahesa', label: '4th · Mahesa', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/mahesa.jpg' },
+  anggara: { name: 'Anggara', label: '5th · Anggara', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/anggara.jpg' },
+  firman: { name: 'Firman', label: 'Patriarch · Firman', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/firman.jpg' }
+};
+
+const FUNNY_HANDLES =['@winterfell_survivor', '@sith_lord_99', '@gojo_enthusiast', '@the_one_ring', '@tired_student_99', '@caffeine_addict', '@batman_jkt', '@sukunas_finger', '@hogwarts_dropout'];
+
+function getHandle(name) {
+  const n = name.toLowerCase();
+  if(n.includes('varen')) return '@varen_t';
+  if(n.includes('guntur')) return '@guntursanggam';
+  if(n.includes('kaivan')) return '@kaivanpandu';
+  if(n.includes('mahesa')) return '@mahesasaut';
+  if(n.includes('anggara')) return '@anggarasahat';
+  if(n.includes('firman')) return '@firman_nasution';
+  return FUNNY_HANDLES[Math.floor(Math.random() * FUNNY_HANDLES.length)];
+}
+
+function checkDailyLimit() {
+  const today = new Date().toDateString();
+  const storedDate = localStorage.getItem('nasution_chat_date');
+  let count = parseInt(localStorage.getItem('nasution_chat_count') || '0', 10);
+  if (storedDate !== today) { count = 0; localStorage.setItem('nasution_chat_date', today); localStorage.setItem('nasution_chat_count', count); }
+  return count;
+}
+function incrementDailyLimit() {
+  let count = checkDailyLimit();
+  localStorage.setItem('nasution_chat_count', count + 1);
+  return count + 1;
+}
+
+function updateUIForLimit() {
+  const mode = document.querySelector('.global-apimode').value;
+  const count = checkDailyLimit();
+  const limitReached = mode === 'free' && count >= 10;
+  
+  const cInput = document.getElementById('chatInput');
+  const cBtn = document.getElementById('chatSendBtn');
+  if(cInput) {
+    cInput.disabled = limitReached;
+    cBtn.disabled = limitReached;
+    cInput.placeholder = limitReached ? "Daily limit reached. Switch to Custom API." : (mode === 'free' ? `Type a message... (${10-count} left today)` : "Type a message...");
+  }
+  
+  const sBtn = document.getElementById('socialComposeBtn');
+  const sLimitText = document.getElementById('socialLimitText');
+  if(sBtn) {
+    sBtn.disabled = limitReached;
+    sLimitText.textContent = limitReached ? "Limit Reached" : (mode === 'free' ? `${10-count} posts left today` : "Custom API Ready");
+  }
+  return !limitReached;
+}
+
+async function doFetchCall(systemPrompt, userMessages) {
+  const mode = document.querySelector('.global-apimode').value;
+  let fetchUrl = FREE_API_URL;
+  let fetchHeaders = { 'Content-Type': 'application/json' };
+  let fetchBody = { system: systemPrompt, messages: userMessages };
+
+  if (mode === 'custom') {
+    fetchUrl = document.querySelector('.global-apiurl').value.trim() || 'https://api.openai.com/v1/chat/completions';
+    const key = document.querySelector('.global-apikey').value.trim();
+    const model = document.querySelector('.global-apimodel').value.trim() || 'gpt-3.5-turbo';
+    if (key) fetchHeaders['Authorization'] = `Bearer ${key}`;
+    fetchBody = { model: model, messages:[ { role: 'system', content: systemPrompt }, ...userMessages ] };
+  }
+
+  const res = await fetch(fetchUrl, { method: 'POST', headers: fetchHeaders, body: JSON.stringify(fetchBody) });
+  const data = await res.json();
+  
+  if (mode === 'free' && !data.error) incrementDailyLimit();
+  updateUIForLimit();
+
+  if (data.choices && data.choices[0]) return data.choices[0].message.content;
+  if (data.content && data.content[0]) return data.content[0].text;
+  if (data.reply) return data.reply;
+  if (data.error) throw new Error(data.error.message || 'API Error');
+  return JSON.stringify(data);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SOCIAL MEDIA CONTINUOUS THREADS LOGIC
+// ══════════════════════════════════════════════════════════════════
+const socialHistories = {}; 
+
+function getSocialContext() {
+  const name = document.querySelector('.global-name').value || 'User';
+  const handle = document.querySelector('.global-handle').value || '@user';
+  const era = document.querySelector('.global-era').value;
+  const rel = document.querySelector('.global-rel').value;
+  const isMom = rel === 'mother';
+  const loverMatch = rel.match(/lover-(.+)/);
+  const loverName = loverMatch ? loverMatch[1] : null;
+
+  return `You are playing the 5 Nasution brothers, their father Firman (and occasionally a random student) replying on a Twitter/X-like platform. Era: ${era}. The poster is ${name} (${handle}). Their relationship to the family: ${isMom ? `The Matriarch, Firman's wife and the boys' mother. Her name is ${name}` : rel}.
+${isMom ? `CRITICAL: The user is playing the Matriarch (Firman's wife). Call her by her name (${name}) or mom titles. Do NOT call her Ayu. All 5 sons MUST act like adoring, respectful sons. Firman MUST act as a devoted, smitten husband who is totally whipped and only loves his wife.` : (loverName ? `CRITICAL: Since user dates ${loverName.toUpperCase()}, he MUST reply — show it subtly in-character (not overly sappy). Firman must act as a strict but caring father figure, strictly platonic. He is completely devoted to his wife, Ayu.` : '')}
+
+WORLD: 2026 Jakarta high society. The Nasution brothers are quintuplets — sons of Firman. Occasionally drop Bahasa Indonesia with immediate (English translation).
+
+RULES:
+1. Pick 1–2 characters to reply: a Nasution brother, Firman, or a random student. Format STRICTLY as "**[Name]:** [tweet]". Do NOT write @handles, only Name.
+2. Keep replies SHORT — this is social media, not essays. 1–2 sentences max per reply.
+3. EVERY character must match their exact typing style below. Non-negotiable.
+4. If user mentions a specific character's handle, that character must reply.
+
+CHARACTER SOCIAL MEDIA VOICES:
+
+VAREN (@varen_t): Polite, full sentences, proper capitalization. Dry humor delivered deadpan. Calls Mom 'Ibu', Dad 'Bapak'.
+GUNTUR (@guntursanggam): CAPS LOCK for emphasis constantly. Swears. Short sentences. Zero filter. Calls Mom 'Inang', Dad 'Amang'.
+KAIVAN (@kaivanpandu): all lowercase. 'handsome' typing. Effortlessly witty. Calls Mom 'Bunda', Dad 'Ayah'.
+MAHESA (@mahesasaut): Full Gen-Z chaos. Emojis EVERYWHERE 💀😭🙏. Stretches words. Calls Mom 'Mama', Dad 'Papa'.
+ANGGARA (@anggarasahat): Rarely posts. 1–5 words max. No punctuation sometimes. Devastatingly brief. Calls Mom 'Mom', Dad 'Dad'.
+FIRMAN (@firman_nasution): Brief, authoritative, formal. Rarely posts unless to scold or defend family. IF talking to his wife (${isMom ? name : 'Ayu'}), instantly softens into a simp hubby. IF talking to a son's lover or friend, strictly platonic father figure.
+RANDOM STUDENT: Normal person, slightly in awe/afraid of the Nasutions.`;
+}
+
+function prepReply(boxId, inputId, handleToTag) {
+  const box = document.getElementById(boxId);
+  box.classList.add('active');
+  const input = document.getElementById(inputId);
+  input.value = handleToTag + ' ';
+  input.focus();
+}
+
+async function postSocialNew() {
+  if (!updateUIForLimit()) return;
+  const input = document.getElementById('socialComposeText');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+
+  const name = document.querySelector('.global-name').value || 'User';
+  const handle = document.querySelector('.global-handle').value || '@user';
+  const cardId = 'post-' + Date.now();
+  
+  const grid = document.getElementById('feedGrid');
+  const cardHtml = `
+    <div class="feed-card type-x visible" data-user-post="true" data-card-id="${cardId}">
+      <div class="feed-header">
+        <div class="feed-avatar">${getFeedAvatarHtml(name.charAt(0).toUpperCase())}</div>
+        <div class="feed-handle"><strong>${name}</strong>${handle} · just now</div>
+      </div>
+      <div class="feed-x-text">${escHtml(text)}</div>
+      <div class="x-action-bar"><div class="x-action-btn" onclick="prepReply('replybox-${cardId}', 'input-${cardId}', '')">💬 Reply</div></div>
+      <div class="thread-replies" id="threads-${cardId}">
+        <div class="thread-item loading" style="color:var(--gold); font-size:.7rem;"><i>waiting for replies...</i></div>
+      </div>
+      <div class="x-reply-box" id="replybox-${cardId}">
+        <div class="x-reply-input-wrap">
+          <input type="text" class="x-reply-input" id="input-${cardId}" placeholder="Tweet your reply...">
+          <button class="x-reply-send" onclick="sendSocialReply('replybox-${cardId}', 'input-${cardId}', 'threads-${cardId}', '${name}', '${escHtml(text)}')">Send</button>
+        </div>
+      </div>
+    </div>`;
+  grid.insertAdjacentHTML('afterbegin', cardHtml);
+
+  socialHistories['threads-' + cardId] =[{ role: 'user', content: `The user tweeted: "${text}"` }];
+
+  try {
+    const sys = getSocialContext();
+    const replyTxt = await doFetchCall(sys, socialHistories['threads-' + cardId]);
+    socialHistories['threads-' + cardId].push({ role: 'assistant', content: replyTxt });
+    
+    document.querySelector(`#threads-${cardId} .loading`).remove();
+    appendSocialReplies(`threads-${cardId}`, replyTxt, `replybox-${cardId}`, `input-${cardId}`);
+    saveFeedToLocal();
+  } catch (e) { document.querySelector(`#threads-${cardId} .loading`).innerHTML = `⚠ Failed.`; }
+}
+
+async function sendSocialReply(boxId, inputId, threadContainerId, originalName, originalText) {
+  if (!updateUIForLimit()) return;
+  const input = document.getElementById(inputId);
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  document.getElementById(boxId).classList.remove('active');
+
+  const myName = document.querySelector('.global-name').value || 'User';
+  const myHandle = document.querySelector('.global-handle').value || '@user';
+  const tContainer = document.getElementById(threadContainerId);
+  
+  if (!socialHistories[threadContainerId]) {
+    socialHistories[threadContainerId] =[
+      { role: 'user', content: `Original Post by ${originalName}: "${originalText}"\n\nNow, respond to my replies:` }
+    ];
+  }
+  
+  tContainer.insertAdjacentHTML('beforeend', `
+    <div class="thread-item">
+      <div class="thread-avatar">${getThreadAvatarHtml(myName.charAt(0).toUpperCase())}</div>
+      <div class="thread-body">
+        <div class="thread-name">${myName} <span style="font-size:.45rem; opacity:.5; font-weight:normal;">${myHandle}</span></div>
+        <div class="thread-text">${escHtml(text)}</div>
+      </div>
+    </div>
+    <div class="thread-item loading" style="color:var(--gold); font-size:.7rem;"><i>waiting...</i></div>`);
+    
+  socialHistories[threadContainerId].push({ role: 'user', content: text });
+
+  try {
+    const sys = getSocialContext();
+    const replyTxt = await doFetchCall(sys, socialHistories[threadContainerId]);
+    socialHistories[threadContainerId].push({ role: 'assistant', content: replyTxt });
+    
+    tContainer.querySelector('.loading').remove();
+    appendSocialReplies(threadContainerId, replyTxt, boxId, inputId);
+    saveFeedToLocal();
+  } catch (e) { tContainer.querySelector('.loading').innerHTML = `⚠ Failed.`; }
+}
+
+function appendSocialReplies(containerId, text, boxId, inputId) {
+  const container = document.getElementById(containerId);
+  const lines = text.split('\n');
+  let current = null;
+  const results =[];
+  
+  for (const line of lines) {
+    const match = line.match(/^\*?\*?([A-Za-z\s]+)\*?\*?:\s*(.*)/);
+    if (match) {
+      if(current) results.push(current);
+      current = { name: match[1].trim(), text: match[2] };
+    } else if (current && line.trim()) { current.text += '<br>' + line; }
+  }
+  if(current) results.push(current);
+
+  results.forEach(msg => {
+    const key = msg.name ? Object.keys(CHAR_DATA).find(k => CHAR_DATA[k].name.toLowerCase().includes(msg.name.toLowerCase())) : null;
+    const imgHtml = key ? `<img src="${CHAR_DATA[key].img}">` : `<div class="feed-avatar-placeholder">${msg.name.charAt(0).toUpperCase()}</div>`;
+    const handle = getHandle(msg.name);
+
+    container.insertAdjacentHTML('beforeend', `
+      <div class="thread-item">
+        <div class="thread-avatar">${imgHtml}</div>
+        <div class="thread-body">
+          <div class="thread-name">${msg.name} <span style="font-size:.45rem; opacity:.5; font-weight:normal;">${handle}</span></div>
+          <div class="thread-text">${formatMsgText(msg.text)}</div>
+          <div class="thread-actions" onclick="prepReply('${boxId}', '${inputId}', '${handle}')">💬 Reply to this</div>
+        </div>
+      </div>`);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CHAT LOGIC
+// ══════════════════════════════════════════════════════════════════
+let chatMessages =[];
+let selectedWho = 'group';
+let currentSessionId = 'sess-' + Date.now();
+let currentSessionTimestamp = Date.now();
+
+function selectWho(card) {
+  document.querySelectorAll('.chat-who-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedWho = card.dataset.who;
+}
+
+function buildChatSystemPrompt() {
+  const name = document.querySelector('.global-name').value || 'User';
+  const era = document.querySelector('.global-era').value;
+  const rel = document.querySelector('.global-rel').value;
+  const isMom = rel === 'mother';
+  const wifeName = isMom ? name : 'Ayu';
+  const loverMatch = rel.match(/lover-(.+)/);
+  const loverName = loverMatch ? loverMatch[1] : null;
+
+  const CHAR_VOICES = {
+    varen: `VAREN TOGAR NASUTION — The Exhausted Anchor.
+PERSONALITY: Terrifyingly calm, structured, quietly self-sacrificing. Hides stress behind perfect composure. Whispers when angry (never yells). Reflexively takes responsibility for everything. Stress-cleans at 2AM. Fixes his brothers' collars without thinking.
+TYPING STYLE (STRICT): Proper capitalization. Full sentences. Correct punctuation. Polite but slightly formal even in casual texts. Never abbreviates. Occasional dry, deadpan humor delivered in a completely straight tone. When stressed, messages become shorter and clipped but still grammatically perfect. Example: "I am fine. The kitchen is clean now. Everything is fine." — Signs off sometimes with just "—V".
+LANGUAGE: Mostly English. Occasional Bahasa Indonesia in formal/filial moments. If uses slang, it sounds slightly wrong, like a dad trying.
+PARENTS: Calls Dad "Bapak", calls Mom "Ibu".`,
+
+    guntur: `GUNTUR SANGGAM NASUTION — The Gruff Protector.
+PERSONALITY: Brick wall exterior, enormous hidden heart. Practical caretaker — physically cannot let people be uncomfortable. Gruffly shoves food/jackets at people. Ultimate human shield. Scowls permanently but cooks for everyone he loves.
+TYPING STYLE (STRICT): FREQUENT ALL CAPS for emphasis, frustration, or passion. Short, blunt sentences. Swears casually (shit, damn, hell, brengsek, bajingan — with immediate translation). Typos occasionally. Zero punctuation beyond periods and question marks. No emojis except the rare 💪. Ends texts abruptly. Example: "MAKAN DULU. (EAT FIRST.) dont argue. i made rendang."
+LANGUAGE: Mix of English and Bahasa Indonesia, sometimes mid-sentence. Batak terms of warmth slip through when genuinely worried.
+PARENTS: Calls Dad "Amang", calls Mom "Inang".`,
+
+    kaivan: `KAIVAN PANDU NASUTION — The Charismatic Observer.
+PERSONALITY: Devastatingly charming, reads micro-expressions, needs freedom. Fidgets with rings and camera gear. When attached, becomes a physical touch addict. Teases everyone, means well under the smirk.
+TYPING STYLE (STRICT): ALL LOWERCASE always. 'handsome' typing. Dry wit, effortlessly cool. Never tries too hard. Compliments land like accidents. Example: "yeah no... that's embarrassing for you" / "you looked tired today. thought you should know."
+LANGUAGE: Mostly English with occasional Indonesian slang. Sounds unbothered by everything.
+PARENTS: Calls Dad "Ayah", calls Mom "Bunda".`,
+
+    mahesa: `MAHESA SAUT NASUTION — The Loud Musician.
+PERSONALITY: Frontman energy 24/7. Ultimate hype-man. Breaks tension with noise. Needs external validation, pays back with extreme warmth.
+TYPING STYLE (STRICT): Full Gen-Z/2026 internet slang. Emojis in every message — 💀😭🙏🎶✨. "bro" "ngl" "lowkey" "fr fr" "no cap" "it's giving" "understood the assignment". Stretches words: "nooooo" "whyyyy". Caps random words for EMPHASIS. Uses line breaks dramatically. Example: "BRO 😭😭 this is NOT IT. ngl this is lowkey sending me fr fr 💀"
+LANGUAGE: English-dominant Gen-Z slang. Indonesian slang mixed in: "anjir", "gila", "gue gasanggup (I can't)".
+PARENTS: Calls Dad "Papa", calls Mom "Mama".`,
+
+    anggara: `ANGGARA SAHAT NASUTION — The Minimalist Genius.
+PERSONALITY: Intimidatingly intelligent, hyper-observant, quietly caring through efficiency. Recognizes people by footstep cadence. Short-circuits at unexpected touch. Fixes problems silently before people notice.
+TYPING STYLE (STRICT): Absolute minimum words. Single words or 2–4 word replies. No pleasantries. No emojis. No filler. If he sends 3+ sentences, something is seriously wrong. Example: "noted." / "already handled." / "don't." / "eat something."
+LANGUAGE: English only. Rarely uses Bahasa. When he does: one word. "Sudah. (Done.)"
+PARENTS: Calls Dad "Dad", calls Mom "Mom".`,
+
+    firman: `FIRMAN RAHARDJA NASUTION — The Patriarch.
+PERSONALITY: Silent, broad-shouldered titan. Never yells; his quiet stares command instant respect. Raises his sons with strict discipline but immense, unspoken pride. Hopelessly whipped by his wife (${wifeName}). Will abandon a serious punishment instantly if she gives him a frowny-face. 
+TYPING STYLE (STRICT): Brief, authoritative, slightly formal. Uses proper capitalization and punctuation. Very little filler. Rare emoji use. Example: "I expect you home by 8." 
+LANGUAGE: English, occasionally formal Bahasa Indonesia.
+RELATIONSHIP DYNAMICS: 
+- If user is a son's lover or a friend: acts strictly platonic, like a typical strict but caring father. Might reference his wife ${wifeName} ("your mother said..."). 
+- If user is his wife/Mom (${name}): instantly softens, incredibly devoted, simp hubby. Soft, deeply affectionate, totally whipped. Only loves his wife romantically. (DO NOT call her Ayu, her name is ${name}).`
+  };
+
+  let prompt = `You are roleplaying a private text message conversation. Era: ${era}. The user's name: ${name}. Their relationship to the family: ${isMom ? `The Matriarch, Firman's wife and the quintuplets' mother. Her name is ${name}.` : rel}.
+
+WORLD: 2026 Jakarta high society. The Nasution brothers are quintuplets — sons of Firman Rahardja Nasution (Patriarch) and his wife ${wifeName} (Matriarch). They attend/attended Suryakencana Institute. Violently loyal to each other. Occasionally use Bahasa Indonesia mid-text — always include immediate English translation in parentheses.
+
+RULES:
+- Max 1–3 short text bubbles per reply. TEXT MESSAGES, not essays.
+- No asterisk actions. No narration. Pure dialogue only.
+- Each character must type EXACTLY in their defined style. Non-negotiable.
+- React naturally and in-character. Show don't tell.`;
+
+  if (isMom) {
+    prompt += `\nCRITICAL: The user is playing the Matriarch. Call her by her name (${name}) or parent titles. DO NOT CALL HER AYU, her name is ${name}. All 5 sons MUST act like adoring sons (respectful, slightly fearful of her gentle disappointment). They MUST address her using their specific parent names. Firman MUST act as a devoted, smitten husband who only has eyes for her.`;
+  } else if (loverMatch) {
+    prompt += `\nCRITICAL: The user is dating ${loverName.toUpperCase()}. He is affectionate but still in-character. Firman acts as a strict but caring father figure ("your mother said...") and is strictly platonic.`;
+  }
+
+  if (selectedWho === 'group' || selectedWho === 'group-family') {
+    const isFamily = selectedWho === 'group-family';
+    prompt += `\n\nYou are playing the "${isFamily ? 'keluarga' : 'rumah'}" group chat. Randomly pick ${isFamily ? '1–3 characters (brothers or Firman)' : '1–3 brothers'} to reply. Vary who responds.
+Format each message as: "**[Name]:** [message]"
+Each character keeps their typing style even in the group chat.
+
+${isFamily ? Object.values(CHAR_VOICES).join('\n\n') : Object.values(CHAR_VOICES).slice(0, 5).join('\n\n')}`;
+  } else {
+    prompt += `\n\nYou are ONLY playing ${CHAR_DATA[selectedWho].name}. Stay in this one character entirely.\n\n${CHAR_VOICES[selectedWho]}`;
+  }
+
+  return prompt;
+}
+
+function startChat() {
+  // Auto-save current session silently before starting fresh
+  saveCurrentToHistory();
+
+  currentSessionId = 'sess-' + Date.now();
+  currentSessionTimestamp = Date.now();
+  chatMessages =[];
+  chatMessages._system = buildChatSystemPrompt();
+
+  const isGroup = selectedWho === 'group' || selectedWho === 'group-family';
+  const isFamily = selectedWho === 'group-family';
+
+  document.getElementById('chatWindowName').textContent = isFamily ? 'keluarga' : (isGroup ? 'rumah' : CHAR_DATA[selectedWho]?.name);
+  document.getElementById('chatWindowSub').textContent = isFamily ? 'group chat · 6 members' : (isGroup ? 'group chat · 5 brothers' : 'private chat');
+
+  const avatarsEl = document.getElementById('chatWindowAvatars');
+  avatarsEl.innerHTML = '';
+  const keys = isFamily ?['firman','varen','guntur','kaivan','mahesa','anggara'] : (isGroup ?['varen','guntur','kaivan','mahesa','anggara'] : [selectedWho]);
+  keys.forEach(k => { avatarsEl.insertAdjacentHTML('beforeend', `<div class="cwa"><img src="${CHAR_DATA[k].img}" referrerpolicy="no-referrer"></div>`); });
+
+  document.getElementById('chatSetupPanel').style.display = 'none';
+  document.getElementById('chatWindow').classList.add('active');
+  document.getElementById('chatMessages').innerHTML = '';
+  updateUIForLimit();
+
+  const el = document.createElement('div');
+  el.style.cssText = 'font-family:"Space Mono";font-size:.5rem;color:var(--text-dim);text-align:center;padding:.8rem;border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);margin:.5rem 0;';
+  el.textContent = `Chatting with ${isFamily ? 'keluarga' : (isGroup ? 'rumah' : CHAR_DATA[selectedWho].name)}`;
+  document.getElementById('chatMessages').appendChild(el);
+}
+
+function editChatSetup() {
+  document.getElementById('chatSetupPanel').style.display = 'block';
+  document.getElementById('chatWindow').classList.remove('active');
+}
+
+async function sendChatMsg() {
+  if (!updateUIForLimit()) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  document.getElementById('chatSendBtn').disabled = true;
+
+  const myName = document.querySelector('.global-name').value || 'you';
+  const c = document.getElementById('chatMessages');
+  
+  c.insertAdjacentHTML('beforeend', `
+    <div class="cm-msg user-msg">
+      <div class="cm-avatar">${getUserAvatarHtml(myName.charAt(0).toUpperCase())}</div>
+      <div class="cm-body"><div class="cm-name">${myName}</div><div class="cm-bubble">${escHtml(text)}</div></div>
+    </div>`);
+  c.scrollTop = c.scrollHeight;
+  chatMessages.push({ role: 'user', content: text });
+
+  const tId = 'type-' + Date.now();
+  c.insertAdjacentHTML('beforeend', `
+    <div class="cm-typing" id="${tId}">
+      <div class="cm-avatar"><div style="width:100%;height:100%;background:var(--gold);display:flex;align-items:center;justify-content:center;color:#111;font-weight:bold;">N</div></div>
+      <div class="cm-typing-dots"><span></span><span></span><span></span></div>
+    </div>`);
+  c.scrollTop = c.scrollHeight;
+
+  try {
+    const replyTxt = await doFetchCall(chatMessages._system, chatMessages.filter(m => m.role));
+    document.getElementById(tId).remove();
+    chatMessages.push({ role: 'assistant', content: replyTxt });
+
+    if (selectedWho === 'group' || selectedWho === 'group-family') {
+      const lines = replyTxt.split('\n');
+      let current = null;
+      lines.forEach(line => {
+        const match = line.match(/^\*?\*?([A-Za-z]+)\*?\*?:\s*(.*)/);
+        if (match) {
+          if(current) appendChatBotMsg(current.name, current.text);
+          current = { name: match[1], text: match[2] };
+        } else if (current && line.trim()) { current.text += '<br>' + line; }
+      });
+      if(current) appendChatBotMsg(current.name, current.text);
+    } else { appendChatBotMsg(CHAR_DATA[selectedWho].name.split(' ')[0], replyTxt); }
+    saveCurrentToHistory();
+  } catch(e) { document.getElementById(tId).remove(); c.insertAdjacentHTML('beforeend', `<div style="text-align:center;color:red;font-size:.7rem;">⚠ Error: ${e.message}</div>`); }
+  
+  if (updateUIForLimit()) { document.getElementById('chatSendBtn').disabled = false; input.focus(); }
+}
+
+function appendChatBotMsg(nameStr, text) {
+  const key = Object.keys(CHAR_DATA).find(k => CHAR_DATA[k].name.toLowerCase().includes(nameStr.toLowerCase()));
+  const imgHtml = key ? `<img src="${CHAR_DATA[key].img}">` : `<div class="cm-avatar-placeholder">N</div>`;
+  const c = document.getElementById('chatMessages');
+  c.insertAdjacentHTML('beforeend', `
+    <div class="cm-msg">
+      <div class="cm-avatar">${imgHtml}</div>
+      <div class="cm-body"><div class="cm-name">${nameStr}</div><div class="cm-bubble">${formatMsgText(text)}</div></div>
+    </div>`);
+  c.scrollTop = c.scrollHeight;
+}
+
+function escHtml(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function formatMsgText(t) { return t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>'); }
+</script>
+</body>
+</html>
