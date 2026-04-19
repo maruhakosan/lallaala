@@ -1293,7 +1293,7 @@ function clearAllSavedData() {
 // ══════════════════════════════════════════════════════════════════
 // API & RATE LIMIT LOGIC
 // ══════════════════════════════════════════════════════════════════
-const FREE_API_URL = "https://key-vault--malareissu.replit.app/api/chat";
+const FREE_API_URL = "https://secure-chat-proxy--rdew7259.replit.app/api/chat";
 
 const CHAR_DATA = {
   varen: { name: 'Varen', label: '1st · Varen', img: 'https://file.garden/aGgA7xAxFEwFoSQZ/varen.jpg' },
@@ -1333,21 +1333,21 @@ function incrementDailyLimit() {
 function updateUIForLimit() {
   const mode = document.querySelector('.global-apimode').value;
   const count = checkDailyLimit();
-  const limitReached = mode === 'free' && count >= 10;
+  const limitReached = mode === 'free' && count >= 20;
   
   const cInput = document.getElementById('chatInput');
   const cBtn = document.getElementById('chatSendBtn');
   if(cInput) {
     cInput.disabled = limitReached;
     cBtn.disabled = limitReached;
-    cInput.placeholder = limitReached ? "Daily limit reached. Switch to Custom API." : (mode === 'free' ? `Type a message... (${10-count} left today)` : "Type a message...");
+    cInput.placeholder = limitReached ? "Daily limit reached. Switch to Custom API." : (mode === 'free' ? `Type a message... (${20-count} left today)` : "Type a message...");
   }
   
   const sBtn = document.getElementById('socialComposeBtn');
   const sLimitText = document.getElementById('socialLimitText');
   if(sBtn) {
     sBtn.disabled = limitReached;
-    sLimitText.textContent = limitReached ? "Limit Reached" : (mode === 'free' ? `${10-count} posts left today` : "Custom API Ready");
+    sLimitText.textContent = limitReached ? "Limit Reached" : (mode === 'free' ? `${20-count} posts left today` : "Custom API Ready");
   }
   return !limitReached;
 }
